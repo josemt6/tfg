@@ -1,0 +1,48 @@
+$secondary: gray;
+$whiteSmoke: whitesmoke;
+$lila: #563b63;
+$negro:#080504;
+$theme-colors: (
+  "secondary" : $secondary,
+  "whiteSmoke" : $whiteSmoke,
+  "lila" : $lila,
+  "negro": $negro
+);
+
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+
+.botonNuevo{
+  @include button-variant(transparent,$lila);
+  border-radius: 0;
+  color: $negro;
+}
+
+#hero{
+  height: 80vh;
+  background-image: url("../imagnes/fotoHero.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+}
+
+.hero{
+  position: relative;
+}
+
+.overlay{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: black;
+  opacity: 50%;
+  z-index: 2;
+}
+
+
+#txtMedio{
+  z-index: 600;
+}
