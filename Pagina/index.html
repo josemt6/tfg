@@ -18,8 +18,9 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary bg-negro" id="cabecera">
         <div class="container-fluid">
             <a class="navbar-brand text-whiteSmoke" href="#">LOGO</a>
-            <button class="navbar-toggler bg-whiteSmoke" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler bg-whiteSmoke" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
@@ -34,18 +35,38 @@
     </nav>
 
 
-    <!-- Hero -->
+    <!-- Carousel -->
 
 
-    <section class="container-fluid d-flex flex-column justify-content-center" id="hero">
-        <div class="hero row">
-            <div class="col-md-10 col-lg-6 txtMedio mx-2 mx-lg-5">
-            <div class="overlay"></div>
-                <h1 class="fw-bolder text-dark">Bienvenido a tu universidad</h1>
-                <p class="text-dark">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur tempore
-                    nostrum eum expedita
-                    blanditiis earum?</p>
-                <a href="#" class="btn botonNuevo">Apúntate a una carrera!! <i class="bi-pen"></i></a>
+    <section class="container-fluid" id="hero">
+        <div id="carouselInicio" class="carousel carousel-dark slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselInicio" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselInicio" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselInicio" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner w-100">
+                <div class="carousel-item active w-100" data-bs-interval="10000" id="img1">
+                </div>
+                <div class="carousel-item w-100" data-bs-interval="2000" id="img2">
+                </div>
+                <div class="carousel-item w-100" id="img3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselInicio" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselInicio" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            <div class="w-100" id="posicionarCarousel">
+                <h1 class="fw-bold frente text-dark">R-tracker, el mejor tracker de carreras deportivas</h1>
+                <a href="#" class="btn frente botonNuevo">Apúntate!! <i class="bi-pen"></i></a>
             </div>
         </div>
     </section>
@@ -54,7 +75,7 @@
     <!--Contenido-->
 
     <section class="container-fluid" id="contenido">
-        
+
     </section>
 
 
