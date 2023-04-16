@@ -10494,12 +10494,11 @@ textarea.form-control-lg {
 }
 
 #hero {
-  height: 70vh;
   padding: 0;
 }
 
 #img1 {
-  height: 80vh;
+  height: 70vh;
   background-image: url("../imagnes/fotoHero.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -10508,7 +10507,7 @@ textarea.form-control-lg {
 }
 
 #img2 {
-  height: 80vh;
+  height: 70vh;
   background-image: url("../imagnes/foto2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -10517,7 +10516,7 @@ textarea.form-control-lg {
 }
 
 #img3 {
-  height: 80vh;
+  height: 70vh;
   background-image: url("../imagnes/foto3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -10551,4 +10550,9 @@ textarea.form-control-lg {
 .carousel-indicators {
   position: absolute;
   top: 0;
+}
+
+.card-img-top img {
+  -o-object-fit: cover;
+     object-fit: cover;
 }/*# sourceMappingURL=estilo.css.map */
