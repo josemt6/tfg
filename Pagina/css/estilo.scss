@@ -2,11 +2,13 @@ $secondary: gray;
 $whiteSmoke: whitesmoke;
 $lila: #563b63;
 $negro:#080504;
+$azul : rgb(0, 81, 255);
 $theme-colors: (
   "secondary" : $secondary,
   "whiteSmoke" : $whiteSmoke,
   "lila" : $lila,
-  "negro": $negro
+  "negro": $negro,
+  "azul" : $azul,
 );
 
 $carousel-control-color:             black;
@@ -81,4 +83,21 @@ $carousel-control-icon-width:        4rem;
 
 .card-img-top img{
   object-fit: cover;
+}
+
+.card:hover{
+  box-shadow: $negro 10px 10px 40px;
+}
+
+.btn-card{
+  @include button-variant($negro,white);
+}
+
+.btn-sesion{
+  @include button-variant($azul,black);
+}
+
+a{
+  text-decoration: none;
+  color: white;
 }

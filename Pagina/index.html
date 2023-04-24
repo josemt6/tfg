@@ -28,7 +28,8 @@
                     <a class="nav-link active  text-whiteSmoke" aria-current="page" href="#">Inicio</a>
                     <a class="nav-link active  text-whiteSmoke" href="#">Carreras</a>
                     <a class="nav-link active  text-whiteSmoke" href="#">Clasificaciones</a>
-                    <a class="nav-link active  text-whiteSmoke">Iniciar Sesión</a>
+                    <a class="nav-link active  text-whiteSmoke" id="sesion" data-bs-toggle="offcanvas"
+                        href="#canvasSesion" role="button" aria-controls="canvasSesion">Iniciar Sesión</a>
                 </div>
             </div>
         </div>
@@ -65,8 +66,11 @@
                 <span class="visually-hidden">Next</span>
             </button>
             <div class="w-100" id="posicionarCarousel">
-                <h1 class="fw-bold frente text-dark">R-tracker, el mejor tracker de carreras deportivas</h1>
-                <a href="#" class="btn frente botonNuevo">Apúntate!! <i class="bi-pen"></i></a>
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="fw-bold frente text-dark">R-tracker, el mejor tracker de carreras deportivas</h1>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -81,7 +85,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Badajoz</h5>
                     <p class="card-text">Carrera de Badajoz</p>
-                    <a href="#" class="btn btn-primary">Visitar</a>
+                    <a href="#" class="btn btn-card">Visitar</a>
                 </div>
             </div>
             <div class="card col-md-3 col-10 p-0 my-2">
@@ -89,7 +93,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Madrid</h5>
                     <p class="card-text">Carrera de Madrid</p>
-                    <a href="#" class="btn btn-primary">Visitar</a>
+                    <a href="#" class="btn btn-card">Visitar</a>
                 </div>
             </div>
             <div class="card col-md-3 col-10 p-0 my-2">
@@ -97,7 +101,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Valencia</h5>
                     <p class="card-text">Carrera de Valencia</p>
-                    <a href="#" class="btn btn-primary">Visitar</a>
+                    <a href="#" class="btn btn-card">Visitar</a>
                 </div>
             </div>
         </div>
@@ -109,17 +113,57 @@
 
     </section>
 
-    <footer class="container-fluid d-flex bg-negro text-white mt-5">
-        <div class="row">
-            <div class="col-md-6 col-10">
-                <p>Copyright ©</p>
-                <p>José Vicente Martín Tejado</p>
+    <section class="container-fluid mt-4" id="footer">
+        <div class="row p-3 justify-content-center bg-negro text-center text-white">
+            <div class="col-md-12 col-lg-3 d-flex flex-column">
+                <h2>Contacto</h2>
+                <p><i class="bi-facebook"></i> | <i class="bi-google"></i> | <i class="bi-twitter"></i> | <i
+                        class="bi-instagram"></i> | <i class="bi-youtube"></i></p>
             </div>
-            <div class="col-md-8 col-10 ">
-                
+            <div class="col-md-12 col-lg-3">
+                <h2>Navegación</h2>
+                <div class="row text-justify">
+                    <div class="col-6">
+                        <p class="text-secondary"><a href="#cabecera">Inicio</a></p>
+                    </div>
+                    <div class="col-6">
+                        <p class="text-secondary"><a href="#carreras">Carreras</a></p>
+                    </div>
+                    <div class="col-6">
+                        <p class="text-secondary"><a href="#">Clasificaciones</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-3">
+                <h2>Noticias</h2>
+                <div class="d-flex">
+                    <input type="text" name="" id="" class="bg-white flex-grow-1"
+                        value="Inscríbete a nuestras noticias"><button class="btn botonNuevo">Suscribete</button>
+                </div>
             </div>
         </div>
-    </footer>
+    </section>
+
+    <!--OffCanvas inicio de sesion-->
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="canvasSesion" aria-labelledby="canvasSesionLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="titCanvas">Inicio de sesión</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                <form action="" method="post">
+                    <p><label for="inpUsuario">Usuario</label></p>
+                    <input type="text" name="usuario" id="inpUsuario" class="form-control">
+                    <p><label for="inpClave">Clave</label></p>
+                    <input type="text" name="inpClave" id="inpClave" class="form-control">
+                    <a href="#" class="btn btn-sesion my-4">Iniciar sesión</a>
+                    <p class="fw-bold fs-6">¿Aún no tienes cuenta? , regístrate <a href="#">aquí</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
