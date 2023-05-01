@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/estilo.scss">
+    <style>
+        #formulario {
+            border: 1px solid grey;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="container-fluid">
+        <div class="row text-start p-3 justify-content-center">
+            <div class="col-4 rounded-1" id="formulario">
+                <h1 class="text-center my-4 p-3">Registro de usuario</h1>
+                <form action="" id="formularioSesion">
+                    <label for="usuario" class="text-start">Usuario</label><input type="text" name="usuario"
+                        id="usuario" class="my-2 form-control" maxlength="20" minlength="1" pattern="([A-Z]+|[a-z]+)"
+                        required>
+                    <label for="clave">Clave</label><input type="password" name="clave" id="clave"
+                        class="my-2 form-control" maxlength="20" minlength="1" pattern="([A-Z]+|[a-z]+)" required>
+                    <div class="container-fluid text-center">
+                        <button class="btn btn-primary my-4" id="sesion">Iniciar sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
