@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
     <title>R-Tracker</title>
     <link rel="stylesheet" href="css/estilo.scss">
     <link rel="stylesheet" href="css/estilo.css">
@@ -153,12 +154,13 @@
         </div>
         <div class="offcanvas-body">
             <div>
-                    <p><label for="inpUsuario">Usuario</label></p>
-                    <input type="text" name="usuario" id="inpUsuario" class="form-control">
-                    <p><label for="inpClave">Clave</label></p>
-                    <input type="password" name="inpClave" id="inpClave" class="form-control">
-                    <a href="#" class="btn btn-sesion my-4" id="btnSesion">Iniciar sesión</a>
-                    <p class="fw-bold fs-6">¿Aún no tienes cuenta? , regístrate <a href="#" class="text-azul">aquí</a></p>
+                <p><label for="inpUsuario">Usuario</label></p>
+                <input type="text" name="usuario" id="inpUsuario" class="form-control">
+                <p><label for="inpClave">Clave</label></p>
+                <input type="password" name="inpClave" id="inpClave" class="form-control">
+                <a href="#" class="btn btn-sesion my-4" id="btnSesion">Iniciar sesión</a>
+                <p class="fw-bold fs-6">¿Aún no tienes cuenta? , regístrate <a href="#" class="text-azul">aquí</a></p>
+                <div id="errorSesion" class="text-red"></div>
             </div>
         </div>
     </div>
