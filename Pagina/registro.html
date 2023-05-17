@@ -31,26 +31,31 @@
                 let tipo = $("#tipoUsuario").val()
                 let fechaNacimiento = $("#fechaNacimiento").val()
                 let localidad = $("#localidad").val()
-                $.ajax({
-                    url: "./Php/registrar.php",
-                    data: {
-                        "usuario": usuario,
-                        "clave": clave,
-                        "nombreUsuario": nombre,
-                        "localidad": localidad,
-                        "tipoUsuario": tipo,
-                        "fechaNacimiento": fechaNacimiento,
-                    },
-                    type: "GET",
-                    success: function () {
-                        localStorage.setItem("usuario", usuario)
-                        location.href = "./index.html"
-                    },
-                    error: function (e) {
-                        alert("No se ha podido registrar el usuario en la base de datos.")
-                        console.log(e)
-                    }
-                })
+                if (usuario == "" && clave == "" && nombre == "") {
+                    $("#txtModalValidacion").text("Por favor, rellena los campos obligatorios")
+                    $("#modalValidacion").modal("show")
+                } else {
+                    $.ajax({
+                        url: "./Php/registrar.php",
+                        data: {
+                            "usuario": usuario,
+                            "clave": clave,
+                            "nombreUsuario": nombre,
+                            "localidad": localidad,
+                            "tipoUsuario": tipo,
+                            "fechaNacimiento": fechaNacimiento,
+                        },
+                        type: "GET",
+                        success: function () {
+                            localStorage.setItem("usuario", JSON.stringify(usuario))
+                            location.href = "./index.html"
+                        },
+                        error: function (e) {
+                            alert("No se ha podido registrar el usuario en la base de datos.")
+                            console.log(e)
+                        }
+                    })
+                }
             })
         })
     </script>
@@ -85,6 +90,24 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="modalValidacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-bs-toggle="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="txtModalValidacion">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
