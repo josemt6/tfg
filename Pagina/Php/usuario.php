@@ -1,6 +1,6 @@
 <?php
     include("./include/BD.php");
-    $usuario = $_GET['usuario'];
-    $clave = $_GET['clave'];
+    $usuario = "jose";
+    $clave = "1234";
     echo Base::getUsuario($usuario,$clave);
 ?>

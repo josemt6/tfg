@@ -6,7 +6,7 @@ function contenidoCanvasSesion() {
         "<p><label for='inpClave'>Clave</label></p>" +
         "<input type='password' name='inpClave' id='inpClave' class='form-control'>" +
         "<a href='#' class='btn btn-sesion my-4' id='btnSesion'>Iniciar sesión</a>" +
-        "<p class='fw-bold fs-6'>¿Aún no tienes cuenta? , regístrate <a href='#' class='text-azul'>aquí</a></p>" +
+        "<p class='fw-bold fs-6'>¿Aún no tienes cuenta? , regístrate <a href='./registro.html' class='text-azul'>aquí</a></p>" +
         "<div id='errorSesion' class='text-red'></div>" +
         "</div>"
 }
@@ -21,7 +21,11 @@ function contenidoCanvasSesionIniciada() {
 
 $(document).ready(function () {
 
-    if (localStorage.getItem('usuario') != undefined || localStorage.getItem('usuario') != "") {
+    $("#logo").click(function(){
+        location.href = "./index.html"
+    })
+
+    if (localStorage.getItem('usuario') != null ) {
         $('#sesion').html(localStorage.getItem('usuario'))
         $("#contenidoCanvas").append(contenidoCanvasSesion())
         $("#contenidoTxtCanvas").text(`Hola ${localStorage.getItem("usuario")}, bienvenido a R-tracker`)
@@ -44,7 +48,9 @@ $(document).ready(function () {
                     if (datos == false) {
                         $('#errorSesion').text('No se ha encontrado el usuario o la contraseña')
                     } else {
-                        localStorage.setItem('usuario', JSON.stringify(usuario))
+                        localStorage.setItem('usuario', usuario)
+                        alert(localStorage.setItem('tipoUsuario', datos))
+                        location.href = "./index.html"
                     }
                 },
                 error: function (e) {

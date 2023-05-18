@@ -13,6 +13,9 @@
     </style>
     <script src="./js/jquery-3.6.0.min.js"></script>
     <script>
+        function registrar(usuario,clave,nombre,tipo,fechaNacimiento,localidad){
+
+        }
         $(document).ready(function () {
             $.ajax({
                 url: "./Php/tipoUsuario.php",
@@ -31,31 +34,28 @@
                 let tipo = $("#tipoUsuario").val()
                 let fechaNacimiento = $("#fechaNacimiento").val()
                 let localidad = $("#localidad").val()
-                if (usuario == "" && clave == "" && nombre == "") {
-                    $("#txtModalValidacion").text("Por favor, rellena los campos obligatorios")
-                    $("#modalValidacion").modal("show")
-                } else {
-                    $.ajax({
-                        url: "./Php/registrar.php",
-                        data: {
-                            "usuario": usuario,
-                            "clave": clave,
-                            "nombreUsuario": nombre,
-                            "localidad": localidad,
-                            "tipoUsuario": tipo,
-                            "fechaNacimiento": fechaNacimiento,
-                        },
-                        type: "GET",
-                        success: function () {
-                            localStorage.setItem("usuario", JSON.stringify(usuario))
-                            location.href = "./index.html"
-                        },
-                        error: function (e) {
-                            alert("No se ha podido registrar el usuario en la base de datos.")
-                            console.log(e)
-                        }
-                    })
-                }
+
+                $.ajax({
+                    url: "./Php/registrar.php",
+                    data: {
+                        "usuario": usuario,
+                        "clave": clave,
+                        "nombreUsuario": nombre,
+                        "localidad": localidad,
+                        "tipoUsuario": tipo,
+                        "fechaNacimiento": fechaNacimiento,
+                    },
+                    type: "GET",
+                    success: function () {
+                        localStorage.setItem("usuario", usuario)
+                        location.href = "./index.html"
+                    },
+                    error: function (e) {
+                        alert("No se ha podido registrar el usuario en la base de datos.")
+                        console.log(e)
+                    }
+                })
+
             })
         })
     </script>

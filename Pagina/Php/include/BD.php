@@ -15,14 +15,14 @@ class Base
     }
     public static function getUsuario($usuario,$clave){
         $conexion = self::conectar();
-        $sql = "SELECT usuario,clave FROM usuario WHERE usuario='". $usuario ."' and clave='". $clave ."'";
+        $sql = "SELECT codTipoUsuario FROM usuario WHERE usuario='". $usuario ."' and clave='". $clave ."'";
         $resultado = $conexion->query($sql);
         $registro = $resultado->fetch();
         if ($registro==false) {
             # code...
             return false;
         } else {
-            return true;
+            return $registro['codTipoUsuario'];
         }
     }
     public static function getTipoUsuario(){
