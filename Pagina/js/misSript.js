@@ -47,7 +47,7 @@ $(document).ready(function () {
             },
             type: "GET",
             success: function (datos) {
-                $("#nombre").text(datos.nombreUsuario)
+                $("#nombre").text(JSON.parse(datos))
                 alert("bien")
             },
             error: function (e) {
