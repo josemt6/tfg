@@ -1,5 +1,7 @@
 <?php
 
+include("./Usuario.php");
+
 class Base
 {
     public static function conectar()
@@ -42,6 +44,13 @@ class Base
         $resultado = $conexion->prepare($sql);
         $afectados = $resultado->execute(array(":usuario"=>$usuario,":clave" => $clave,":codTipo"=>$tipoUsuario,":localidad" => $localidad,":fechaNacimiento"=>$fechaNacimiento,":nombreUsuario"=>$nombreCompleto));
         $resultado->closeCursor();
+    }
+    public static function getInfoUsuario($usuario){
+        $conexion = self::conectar();
+        $sql = "SELECT * FROM usuario WHERE usuario='". $usuario ."'";
+        $resultado = $conexion->query($sql);
+        $registro = $resultado->fetch();
+        return new Usuario($registro);
     }
 }
 ?>

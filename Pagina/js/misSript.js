@@ -18,39 +18,63 @@ function contenidoCanvasSesionIniciada() {
         "</div>"
 }
 
+function configuracionPerfil() {
+    return "<div class='row'>" +
+        "<div class='col-3'><div class='rounded-circle' id='icono'></div></div>" +
+        "<div class='col-9 row'>" +
+        "<div class='col-8' id='nombre'></div>" +
+        "<div class='col-4' id='localidad'></div>" +
+        "</div>" +
+        "</div>"
+}
+
 
 $(document).ready(function () {
 
-    $("#logo").click(function(){
+    $("#logo").click(function () {
         location.href = "./index.html"
     })
 
-    if (localStorage.getItem('usuario') != null ) {
+    if (localStorage.getItem('usuario') != null) {
         $('#sesion').html(localStorage.getItem('usuario'))
-        $("#contenidoCanvas").append(contenidoCanvasSesion())
+        $("#contenidoCanvas").append(contenidoCanvasSesionIniciada())
         $("#contenidoTxtCanvas").text(`Hola ${localStorage.getItem("usuario")}, bienvenido a R-tracker`)
+        $("#contenidoCanvas").append(configuracionPerfil())
+        $.ajax({
+            url: "./Php/infoUsuario.php",
+            data: {
+                "usuario": localStorage.getItem("usuario")
+            },
+            type: "GET",
+            success: function (datos) {
+                $("#nombre").text(datos.nombreUsuario)
+                alert("bien")
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
 
     } else {
         $('#sesion').text('Iniciar sesión')
-        $("contenidoCanvas").append(contenidoCanvasSesion())
+        $("#contenidoCanvas").append(contenidoCanvasSesion())
         $('#btnSesion').click(function () {
             let usuario = $('#inpUsuario').val()
             alert(usuario)
             let clave = $('#inpClave').val()
             $.ajax({
-                url: '../php/usuario.php',
+                url: './Php/usuario.php',
                 data: {
                     'usuario': usuario,
                     'clave': clave
                 },
-                type: 'GET',
+                type: 'POST',
                 success: function (datos) {
                     if (datos == false) {
                         $('#errorSesion').text('No se ha encontrado el usuario o la contraseña')
                     } else {
                         localStorage.setItem('usuario', usuario)
-                        alert(localStorage.setItem('tipoUsuario', datos))
-                        location.href = "./index.html"
+                        location.href = "index.html"
                     }
                 },
                 error: function (e) {
@@ -59,6 +83,7 @@ $(document).ready(function () {
                 }
             })
         })
+
     }
 
     //Iniciar sesión
