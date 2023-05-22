@@ -1,6 +1,7 @@
 <?php
 
 include("./Usuario.php");
+include("./Carrera.php");
 
 class Base
 {
@@ -50,7 +51,17 @@ class Base
         $sql = "SELECT * FROM usuario WHERE usuario='". $usuario ."'";
         $resultado = $conexion->query($sql);
         $registro = $resultado->fetch();
-        return new Usuario($registro);
+        return $registro['codUsuario'] . ";" . $registro['usuario'] . ";" . $registro['nombreUsuario'] . ";" . $registro['fechaNacimiento'] . ";" . $registro['localidad'] . ";" . $registro['codTipoUsuario'];
+    }
+    public static function getCarreras(){
+        $conexion = self::conectar();
+        $sql = "SELECT * FROM carreras";
+        $resultado = $conexion->query($sql);
+        $arrayCarreras = [];
+        while ($registro=$resultado->fetch()) {
+            # code...
+            array_push($arrayCarreras,new Carrera($registro));
+        }
     }
 }
 ?>

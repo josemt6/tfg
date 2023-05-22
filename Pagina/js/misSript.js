@@ -11,10 +11,14 @@ function contenidoCanvasSesion() {
         "</div>"
 }
 
-function contenidoCanvasSesionIniciada() {
-    return "<div>" +
-        "<div class='col-3 rounded-circle bg-negroFooter text-white' id='letraIcono'></div>" +
-        "<div id='contenidoTxtCanvas' class='col-9 fw-bold text-negroFooter'></div>" +
+function getTarjetas() {
+    return "<div class='card col-md-3 col-10 p-0 my-2'>" +
+        "<img src='./imagnes/fotoBadajoz.jpg' class='card-img-top img-fluid' alt='...'>" *
+        "<div class='card-body'>" +
+        "<h5 class='card-title'>/h5>" +
+        "<p class='card-text'></p>" +
+        "<a href='#' class='btn btn-card visitar'>Visitar</a>" +
+        "</div>" +
         "</div>"
 }
 
@@ -24,22 +28,33 @@ function configuracionPerfil() {
         "<div class='col-9 row'>" +
         "<div class='col-8' id='nombre'></div>" +
         "<div class='col-4' id='localidad'></div>" +
-        "</div>" +
+        "<a href='#' class='btn btn-danger' id='cerrarSesion'>Cerrar sesión</a></div>" +
         "</div>"
 }
 
+function loader() {
+    return "<span class='loader' id='loader'></span>"
+}
 
 $(document).ready(function () {
+
+    $("#carreras").css("visibility", "hidden")
 
     $("#logo").click(function () {
         location.href = "./index.html"
     })
 
+    $("body").append(loader())
+
+    $("#cerrarSesion").click(function () {
+        localStorage.clear()
+        location.href = "index.html"
+    })
+
     if (localStorage.getItem('usuario') != null) {
         $('#sesion').html(localStorage.getItem('usuario'))
-        $("#contenidoCanvas").append(contenidoCanvasSesionIniciada())
-        $("#contenidoTxtCanvas").text(`Hola ${localStorage.getItem("usuario")}, bienvenido a R-tracker`)
         $("#contenidoCanvas").append(configuracionPerfil())
+        $("#contenidoCanvas").append(loader())
         $.ajax({
             url: "./Php/infoUsuario.php",
             data: {
@@ -47,8 +62,19 @@ $(document).ready(function () {
             },
             type: "GET",
             success: function (datos) {
-                $("#nombre").text(JSON.parse(datos))
-                alert("bien")
+                let info = datos.split(";")
+                $("#loader").remove()
+                $("#icono").text(localStorage.getItem("usuario").substring(0, 1))
+                $("#nombre").append(`<p class='text-secondary'>${info[1]}</p>`)
+                $("#nombre").append(`<p class='text-secondary'>${info[2]}</p>`)
+                $("#nombre").append(`<p class='text-secondary'>${info[3]}</p>`)
+                $("#localidad").append(`<p class='text-secondary'>${info[4]}</p>`)
+                if (info[5] == 1) {
+                    $("#localidad").append(`<p class='text-secondary'>Organizador</p>`)
+                } else if (info[5] == 2) {
+                    $("#localidad").append(`<p class='text-secondary'>Corredor</p>`)
+                }
+
             },
             error: function (e) {
                 console.log(e)
