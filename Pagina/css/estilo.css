@@ -34,11 +34,13 @@
   --bs-lila: #563b63;
   --bs-negro: #080504;
   --bs-azul: rgb(0, 81, 255);
+  --bs-rojo: rgb(243, 2, 2);
   --bs-secondary-rgb: 128, 128, 128;
   --bs-whiteSmoke-rgb: 245, 245, 245;
   --bs-lila-rgb: 86, 59, 99;
   --bs-negro-rgb: 8, 5, 4;
   --bs-azul-rgb: 0, 81, 255;
+  --bs-rojo-rgb: 243, 2, 2;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
@@ -2917,6 +2919,23 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: rgb(0, 81, 255);
 }
 
+.btn-rojo {
+  --bs-btn-color: #000;
+  --bs-btn-bg: rgb(243, 2, 2);
+  --bs-btn-border-color: rgb(243, 2, 2);
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: #f52828;
+  --bs-btn-hover-border-color: #f41b1b;
+  --bs-btn-focus-shadow-rgb: 207, 2, 2;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: #f53535;
+  --bs-btn-active-border-color: #f41b1b;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: rgb(243, 2, 2);
+  --bs-btn-disabled-border-color: rgb(243, 2, 2);
+}
+
 .btn-outline-secondary {
   --bs-btn-color: gray;
   --bs-btn-border-color: gray;
@@ -2999,6 +3018,23 @@ textarea.form-control-lg {
   --bs-btn-disabled-color: rgb(0, 81, 255);
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: rgb(0, 81, 255);
+  --bs-gradient: none;
+}
+
+.btn-outline-rojo {
+  --bs-btn-color: rgb(243, 2, 2);
+  --bs-btn-border-color: rgb(243, 2, 2);
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: rgb(243, 2, 2);
+  --bs-btn-hover-border-color: rgb(243, 2, 2);
+  --bs-btn-focus-shadow-rgb: 243, 2, 2;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: rgb(243, 2, 2);
+  --bs-btn-active-border-color: rgb(243, 2, 2);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: rgb(243, 2, 2);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: rgb(243, 2, 2);
   --bs-gradient: none;
 }
 
@@ -4587,6 +4623,15 @@ textarea.form-control-lg {
   color: #00277a;
 }
 
+.alert-rojo {
+  --bs-alert-color: #920101;
+  --bs-alert-bg: #fdcccc;
+  --bs-alert-border-color: #fbb3b3;
+}
+.alert-rojo .alert-link {
+  color: #750101;
+}
+
 @keyframes progress-bar-stripes {
   0% {
     background-position-x: 1rem;
@@ -4947,6 +4992,20 @@ textarea.form-control-lg {
   color: #fff;
   background-color: #003199;
   border-color: #003199;
+}
+
+.list-group-item-rojo {
+  color: #920101;
+  background-color: #fdcccc;
+}
+.list-group-item-rojo.list-group-item-action:hover, .list-group-item-rojo.list-group-item-action:focus {
+  color: #920101;
+  background-color: #e4b8b8;
+}
+.list-group-item-rojo.list-group-item-action.active {
+  color: #fff;
+  background-color: #920101;
+  border-color: #920101;
 }
 
 .btn-close {
@@ -6496,6 +6555,11 @@ textarea.form-control-lg {
   background-color: RGBA(0, 81, 255, var(--bs-bg-opacity, 1)) !important;
 }
 
+.text-bg-rojo {
+  color: #000 !important;
+  background-color: RGBA(243, 2, 2, var(--bs-bg-opacity, 1)) !important;
+}
+
 .link-secondary {
   color: gray !important;
 }
@@ -6529,6 +6593,13 @@ textarea.form-control-lg {
 }
 .link-azul:hover, .link-azul:focus {
   color: #0041cc !important;
+}
+
+.link-rojo {
+  color: rgb(243, 2, 2) !important;
+}
+.link-rojo:hover, .link-rojo:focus {
+  color: #f53535 !important;
 }
 
 .ratio {
@@ -6975,6 +7046,11 @@ textarea.form-control-lg {
 .border-azul {
   --bs-border-opacity: 1;
   border-color: rgba(var(--bs-azul-rgb), var(--bs-border-opacity)) !important;
+}
+
+.border-rojo {
+  --bs-border-opacity: 1;
+  border-color: rgba(var(--bs-rojo-rgb), var(--bs-border-opacity)) !important;
 }
 
 .border-white {
@@ -7824,6 +7900,11 @@ textarea.form-control-lg {
   color: rgba(var(--bs-azul-rgb), var(--bs-text-opacity)) !important;
 }
 
+.text-rojo {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-rojo-rgb), var(--bs-text-opacity)) !important;
+}
+
 .text-black {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
@@ -7898,6 +7979,11 @@ textarea.form-control-lg {
 .bg-azul {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-azul-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-rojo {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-rojo-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-black {
@@ -10687,8 +10773,8 @@ a {
 }
 
 #icono {
-  width: 30px;
-  height: 30px;
+  width: 100px;
+  height: 100px;
   background-color: rgb(0, 81, 255);
 }
 

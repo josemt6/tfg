@@ -24,11 +24,11 @@ function getTarjetas() {
 
 function configuracionPerfil() {
     return "<div class='row'>" +
-        "<div class='col-3'><div class='rounded-circle' id='icono'></div></div>" +
-        "<div class='col-9 row'>" +
-        "<div class='col-8' id='nombre'></div>" +
-        "<div class='col-4' id='localidad'></div>" +
-        "<a href='#' class='btn btn-danger' id='cerrarSesion'>Cerrar sesión</a></div>" +
+        "<div class='col-12'><div class='rounded-circle' id='icono'></div></div>" +
+        "<div class='col-12 row'>" +
+        "<div class='col-6' id='nombre'></div>" +
+        "<div class='col-6' id='localidad'></div>" +
+        "<a href='#' class='btn btn-rojo' id='cerrarSesion'>Cerrar sesión</a></div>" +
         "</div>"
 }
 
