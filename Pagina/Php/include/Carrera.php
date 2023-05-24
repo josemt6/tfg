@@ -19,7 +19,6 @@ class Carrera {
 	
 
 	function __Construct ($registro){
-		
 		$this->codCarrera=  $registro['codCarrera'];
 		$this->nombre = $registro['nombreCarrera'];
 		$this->localizacion = $registro['localizacion'];

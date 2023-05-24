@@ -107,7 +107,13 @@ a{
 #icono{
   width: 100px;
   height: 100px;
+  margin:auto;
   background-color: $azul;
+  text-align: center;
+  color: white;
+  font-weight: bolder;
+  vertical-align: middle;
+  font-size: 4rem;
 }
 
 .loader {

@@ -10775,7 +10775,13 @@ a {
 #icono {
   width: 100px;
   height: 100px;
+  margin: auto;
   background-color: rgb(0, 81, 255);
+  text-align: center;
+  color: white;
+  font-weight: bolder;
+  vertical-align: middle;
+  font-size: 4rem;
 }
 
 .loader {

@@ -13,9 +13,9 @@ function contenidoCanvasSesion() {
 
 function getTarjetas() {
     return "<div class='card col-md-3 col-10 p-0 my-2'>" +
-        "<img src='./imagnes/fotoBadajoz.jpg' class='card-img-top img-fluid' alt='...'>" *
+        "<img src='./imagnes/fotoBadajoz.jpg' class='card-img-top img-fluid' alt='...'>" +
         "<div class='card-body'>" +
-        "<h5 class='card-title'>/h5>" +
+        "<h5 class='card-title'></h5>" +
         "<p class='card-text'></p>" +
         "<a href='#' class='btn btn-card visitar'>Visitar</a>" +
         "</div>" +
@@ -24,47 +24,62 @@ function getTarjetas() {
 
 function configuracionPerfil() {
     return "<div class='row'>" +
-        "<div class='col-12'><div class='rounded-circle' id='icono'></div></div>" +
-        "<div class='col-12 row'>" +
+        "<div class='col-12 text-center'><div class='rounded-circle' id='icono'></div></div>" +
+        "<div class='col-12 row text-center'>" +
         "<div class='col-6' id='nombre'></div>" +
         "<div class='col-6' id='localidad'></div>" +
+        "<span class='loader mx-auto my-4 text-center' id='loader'></span>" +
         "<a href='#' class='btn btn-rojo' id='cerrarSesion'>Cerrar sesión</a></div>" +
         "</div>"
 }
 
-function loader() {
-    return "<span class='loader' id='loader'></span>"
-}
-
 $(document).ready(function () {
 
-    $("#carreras").css("visibility", "hidden")
+    $("#carreras").toggleClass("d-none")
+    $("#contenido").toggleClass("d-none")
 
-    $("#logo").click(function () {
-        location.href = "./index.html"
+    $("#carrerasVer").click(function () {
+        $("#carreras").toggleClass("d-none")
+        $.ajax({
+            url: "./Php/verCarreras.php",
+            type: 'POST',
+            dataType: 'json',
+            success: function (respuesta) {
+                for (let i=0; i< respuesta.length; i++) {
+                    $("#carrerasContenido").append(getTarjetas())
+                    $(".card-title").text(respuesta[i].nombreCarrera)
+                    $(".card-text").text(`Localización : ${respuesta[i].localizacion}`)
+                    console.log(respuesta[i])
+                }
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
     })
 
-    $("body").append(loader())
+    $("#logo").click(function () {
+        location.reload()
+    })
 
     $("#cerrarSesion").click(function () {
         localStorage.clear()
-        location.href = "index.html"
+        location.reload()
     })
 
     if (localStorage.getItem('usuario') != null) {
         $('#sesion').html(localStorage.getItem('usuario'))
         $("#contenidoCanvas").append(configuracionPerfil())
-        $("#contenidoCanvas").append(loader())
         $.ajax({
             url: "./Php/infoUsuario.php",
             data: {
                 "usuario": localStorage.getItem("usuario")
             },
-            type: "GET",
+            type: "POST",
             success: function (datos) {
                 let info = datos.split(";")
                 $("#loader").remove()
-                $("#icono").text(localStorage.getItem("usuario").substring(0, 1))
+                $("#icono").text(localStorage.getItem("usuario").substring(0, 1).toUpperCase())
                 $("#nombre").append(`<p class='text-secondary'>${info[1]}</p>`)
                 $("#nombre").append(`<p class='text-secondary'>${info[2]}</p>`)
                 $("#nombre").append(`<p class='text-secondary'>${info[3]}</p>`)
@@ -74,7 +89,6 @@ $(document).ready(function () {
                 } else if (info[5] == 2) {
                     $("#localidad").append(`<p class='text-secondary'>Corredor</p>`)
                 }
-
             },
             error: function (e) {
                 console.log(e)
@@ -111,12 +125,6 @@ $(document).ready(function () {
         })
 
     }
-
-    //Iniciar sesión
-
-
-
-    //Registrarse
 
 
 
