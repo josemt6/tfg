@@ -27,6 +27,20 @@ class Base
         }
         return $cadena;
     }
-    
+    public static function registrarse($usuario,$clave,$tipoUsuario,$localidad,$fechaNacimineto,$nombreUsuario){
+        $conexion = self::conectar();
+        $sql = "INSERT INTO usuario (usuario,clave,codTipoUsuario,localidad,fechaNacimiento,nombreUsuario) VALUES (:usuario,:clave,:codTipoUsuario,:localidad,:fechaNacimiento,:nombreUsuario)";
+        $resultado = $conexion->prepare($sql);
+        $row = $resultado->execute(array(":usuario" => $usuario, ":clave" => $clave, ":codTipoUsuario" => $tipoUsuario, ":localidad" => $localidad, ":fechaNacimiento" => $fechaNacimineto, ":nombreUsuario" => $nombreUsuario));
+        $resultado->closeCursor();
+        return $row;
+    }
+    public static function getInfoUsuario($usuario){
+        $conexion = self::conectar();
+        $sql = "SELECT * FROM usuario WHERE usuario='". $usuario ."'";
+        $resultado = $conexion->query($sql);
+        $row = $resultado->fetch();
+        return $row;
+    }
 }
 ?>

@@ -62,11 +62,6 @@ $(document).ready(function () {
         location.reload()
     })
 
-    $("#cerrarSesion").click(function () {
-        localStorage.clear()
-        location.reload()
-    })
-
     if (localStorage.getItem('usuario') != null) {
         $('#sesion').html(localStorage.getItem('usuario'))
         $("#contenidoCanvas").append(configuracionPerfil())
@@ -77,13 +72,12 @@ $(document).ready(function () {
             },
             type: "POST",
             success: function (datos) {
-                let info = datos.split(";")
                 $("#loader").remove()
-                $("#icono").text(localStorage.getItem("usuario").substring(0, 1).toUpperCase())
-                $("#nombre").append(`<p class='text-secondary'>${info[1]}</p>`)
-                $("#nombre").append(`<p class='text-secondary'>${info[2]}</p>`)
-                $("#nombre").append(`<p class='text-secondary'>${info[3]}</p>`)
-                $("#localidad").append(`<p class='text-secondary'>${info[4]}</p>`)
+                $("#icono").text(datos.nombreUsuario.substring(0,1).toUpperCase())
+                $("#nombre").append(`<p class='text-secondary'>${datos.usuario}</p>`)
+                $("#nombre").append(`<p class='text-secondary'>${datos.nombreUsuario}</p>`)
+                $("#nombre").append(`<p class='text-secondary'>${datos.localidad}</p>`)
+                $("#localidad").append(`<p class='text-secondary'>${datos.fechaNacimiento}</p>`)
                 if (info[5] == 1) {
                     $("#localidad").append(`<p class='text-secondary'>Organizador</p>`)
                 } else if (info[5] == 2) {
@@ -126,8 +120,10 @@ $(document).ready(function () {
 
     }
 
-
-
+    $("#cerrarSesion").click(function () {
+        localStorage.clear()
+        location.reload()
+    })
 
 })
 
