@@ -26,6 +26,9 @@ $carousel-control-icon-width:        4rem;
   color: black;
 }
 
+#cabecera{
+  background-color: black;
+}
 
 #hero{
   padding: 0;
@@ -114,9 +117,6 @@ a{
   font-weight: bolder;
   vertical-align: middle;
   font-size: 4rem;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .loader {
@@ -149,8 +149,3 @@ a{
     transform: rotate(360deg);
   }
 } 
-
-#btnAbajo{
-  height: 100%;
-  align-self: flex-end;
-}

@@ -5,9 +5,9 @@ function contenidoCanvasSesion() {
         "<input type='text' name='usuario' id='inpUsuario' class='form-control'>" +
         "<p><label for='inpClave'>Clave</label></p>" +
         "<input type='password' name='inpClave' id='inpClave' class='form-control'>" +
+        "<div id='errorSesion' class='text-rojo mt-3'></div>" +
         "<a href='#' class='btn btn-sesion my-4' id='btnSesion'>Iniciar sesión</a>" +
         "<p class='fw-bold fs-6'>¿Aún no tienes cuenta? , regístrate <a href='./registro.html' class='text-azul'>aquí</a></p>" +
-        "<div id='errorSesion' class='text-red'></div>" +
         "</div>"
 }
 
@@ -32,7 +32,7 @@ function configuracionPerfil() {
         "</div><div class='col-12 text-center' id='btnAbajo'><a href='#' class='btn btn-rojo mt-2' id='cerrarSesion'>Cerrar sesión</a></div>"
 }
 
-function loader(){
+function loader() {
     return "<span class='loader mx-auto my-4 text-center'></span>"
 }
 
@@ -66,7 +66,7 @@ $(document).ready(function () {
 
     //Modal con la información de las carreras y para apuntarse
 
-    $(".visitar").click(function(){
+    $(".visitar").click(function () {
         $("#modalCarreras").show()
         $("#txtModalCarreras").append(loader())
         $.ajax({
@@ -107,13 +107,13 @@ $(document).ready(function () {
             dataType: 'json',
             type: "POST",
             success: function (datos) {
-                if (datos.codTipoUsuario==1) {
-                    $("#nombre").append(`<p class='text-secondary m-0 fw-bolder fs-2 text-center'>Organizador</p>`)
+                if (datos.codTipoUsuario == 1) {
+                    $("#nombre").append(`<p class='text-secondary m-0 fw-bolder fs-2 text-center' id='tipoUsuario'>Organizador</p>`)
                 } else {
-                    $("#nombre").append(`<p class='text-secondary m-0 fw-bolder fs-2 text-center'>Corredor</p>`)
+                    $("#nombre").append(`<p class='text-secondary m-0 fw-bolder fs-2 text-center' id='tipoUsuario'>Corredor</p>`)
                 }
                 $("#loader").remove()
-                $("#icono").text(datos.usuario.substring(0,1).toUpperCase())
+                $("#icono").text(datos.usuario.substring(0, 1).toUpperCase())
                 $("#nombre").append(`<p class='text-secondary m-0'>Usuario : ${datos.usuario}</p>`)
                 $("#nombre").append(`<p class='text-secondary m-0'>Nombre : ${datos.nombreUsuario}</p>`)
                 $("#nombre").append(`<p class='text-secondary m-0'>Localidad: ${datos.localidad}</p>`)
@@ -128,7 +128,6 @@ $(document).ready(function () {
         $("#contenidoCanvas").append(contenidoCanvasSesion())
         $('#btnSesion').click(function () {
             let usuario = $('#inpUsuario').val()
-            alert(usuario)
             let clave = $('#inpClave').val()
             $.ajax({
                 url: './Php/usuario.php',
@@ -138,11 +137,14 @@ $(document).ready(function () {
                 },
                 type: 'POST',
                 success: function (datos) {
-                    if (datos == false) {
+                    alert(datos)
+                    if (datos == "false") {
                         $('#errorSesion').text('No se ha encontrado el usuario o la contraseña')
-                    } else {
+                    } else if (datos == "true") {
                         localStorage.setItem('usuario', usuario)
-                        location.href = "i.html"
+                        location.reload()
+                    } else {
+                        $('#errorSesion').text('Error en el inicio')
                     }
                 },
                 error: function (e) {
@@ -154,12 +156,30 @@ $(document).ready(function () {
 
     }
 
+    //Mostrar diferente segun tipo
+    if (localStorage.getItem("usuario") != null) {
+        $.ajax({
+            url: "./Php/tipoUsuario2.php",
+            data: { "usuario": localStorage.getItem("usuario") },
+            type: 'POST',
+            success: function (datos) {
+                if (datos == "organizador") {
+                    $("#clasificaciones").after(`<a class="nav-link active  text-whiteSmoke" href="#" id="organizar">Organizar Carreras</a>`)
+                } else if (datos == "corredor") {
+                    $("#cabecera").css("background-color", "blue")
+                }
+            }
+        })
+    }
+
     //Boton de cerrar sesion
 
     $("#cerrarSesion").click(function () {
         localStorage.clear()
+        $("#organizar").remove()
         location.reload()
     })
+
 
 })
 

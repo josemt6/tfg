@@ -27,9 +27,20 @@ class Base
         }
         return $cadena;
     }
+    public static function getTipoUsuario2($usuario){
+        $conexion = self::conectar();
+        $sql = "SELECT nombreTipo FROM tipoUsuario where codTipoUsuario=(select codTipoUsuario from usuario where usuario='". $usuario ."')";
+        $resultado = $conexion->query($sql);
+        $cadena = "";
+        while ($registro = $resultado->fetch()) {
+            # code...
+            $cadena .= $registro['nombreTipo'];
+        }
+        return $cadena;
+    }
     public static function registrarse($usuario,$clave,$tipoUsuario,$localidad,$fechaNacimineto,$nombreUsuario){
         $conexion = self::conectar();
-        $sql = "INSERT INTO usuario (usuario,clave,codTipoUsuario,localidad,fechaNacimiento,nombreUsuario) VALUES (:usuario,:clave,:codTipoUsuario,:localidad,:fechaNacimiento,:nombreUsuario)";
+        $sql = "INSERT INTO usuario (usuario,clave,codTipoUsuario,localidad,fechaNacimiento,nombreUsuario) VALUES (:usuario,md5(:clave),:codTipoUsuario,:localidad,:fechaNacimiento,:nombreUsuario)";
         $resultado = $conexion->prepare($sql);
         $row = $resultado->execute(array(":usuario" => $usuario, ":clave" => $clave, ":codTipoUsuario" => $tipoUsuario, ":localidad" => $localidad, ":fechaNacimiento" => $fechaNacimineto, ":nombreUsuario" => $nombreUsuario));
         $resultado->closeCursor();
@@ -41,6 +52,13 @@ class Base
         $resultado = $conexion->query($sql);
         $row = $resultado->fetch();
         return $row;
+    }
+    public static function getUsuario($usuario,$clave){
+        $conexion = self::conectar();
+        $sql = "SELECT usuario from usuario where usuario='". $usuario ."' and clave='". $clave ."'";
+        $rd = $conexion->query($sql);
+        $rdo = $rd->execute();
+        return $rdo;
     }
 }
 ?>
