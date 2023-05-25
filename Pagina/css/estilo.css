@@ -10782,6 +10782,9 @@ a {
   font-weight: bolder;
   vertical-align: middle;
   font-size: 4rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .loader {
@@ -10815,4 +10818,8 @@ a {
   100% {
     transform: rotate(360deg);
   }
+}
+#btnAbajo {
+  height: 100%;
+  align-self: flex-end;
 }/*# sourceMappingURL=estilo.css.map */

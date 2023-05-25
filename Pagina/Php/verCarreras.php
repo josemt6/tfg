@@ -1,8 +1,13 @@
 <?php
-include("./include/BD.php");
-$conexion = Base::conectar();
-$sql = "SELECT * FROM carreras";
-$resultado = $conexion->query($sql);
-$row = $resultado->fetch();
-echo json_encode($row);
+$host="localhost";
+$usuario="root";
+$clave="";
+$bd="carrerasdeportivas";
+$conn=mysqli_connect($host,$usuario,$clave,$bd);
+//Coger varias filas
+$resultado=$conn->query("select * from carreras");
+$row=$resultado->fetch_all(MYSQLI_ASSOC); 
+$conn->close();
+$rdo=json_encode($row);
+echo $rdo;
 ?>
