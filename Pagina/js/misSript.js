@@ -17,7 +17,9 @@ function getTarjetas() {
         "<div class='card-body'>" +
         "<h5 class='card-title'></h5>" +
         "<p class='card-text'></p>" +
-        "<a href='#' class='btn btn-card visitar'>Visitar</a>" +
+        "<button type='button' class='btn btn-card' id='verModal' data-bs-toggle='modal' data-bs-target='#modalCarreras'>" +
+        "Visitar" +
+        "</button>" +
         "</div>" +
         "</div>"
 }
@@ -66,31 +68,13 @@ $(document).ready(function () {
 
     //Modal con la información de las carreras y para apuntarse
 
-    $(".visitar").click(function () {
-        $("#modalCarreras").show()
-        $("#txtModalCarreras").append(loader())
-        $.ajax({
-            url: "./Php/verCarreras.php",
-            type: 'POST',
-            dataType: 'json',
-            success: function (respuesta) {
-                $("#carrerasContenido").empty()
-                for (let i = 0; i < respuesta.length; i++) {
-                    $("#txtModalCarreras").append(getTarjetas())
-                    $("#txtModalCarreras").text(`<p>${respuesta[i].nombreCarrera}</p>`)
-                    $("#txtModalCarreras").text(`<p>Localización : ${respuesta[i].localizacion}</p>`)
-                    $("#txtModalCarreras .loader").remove()
-                }
-            },
-            error: function (e) {
-                console.log(e)
-            }
-        })
-    })
-
     //Recargar la página con el logo
 
     $("#logo").click(function () {
+        location.reload()
+    })
+
+    $("#inicio").click(function () {
         location.reload()
     })
 
@@ -157,7 +141,9 @@ $(document).ready(function () {
     }
 
     //Mostrar diferente segun tipo
+
     if (localStorage.getItem("usuario") != null) {
+        let organizador
         $.ajax({
             url: "./Php/tipoUsuario2.php",
             data: { "usuario": localStorage.getItem("usuario") },
@@ -165,12 +151,20 @@ $(document).ready(function () {
             success: function (datos) {
                 if (datos == "organizador") {
                     $("#clasificaciones").after(`<a class="nav-link active  text-whiteSmoke" href="#" id="organizar">Organizar Carreras</a>`)
+                    $("#cabecera").css("background-color", "black")
                 } else if (datos == "corredor") {
                     $("#cabecera").css("background-color", "blue")
                 }
             }
         })
+        alert(organizador)
+        if (organizador) {
+
+        } else {
+        }
     }
+
+
 
     //Boton de cerrar sesion
 
@@ -182,4 +176,28 @@ $(document).ready(function () {
 
 
 })
+
+$("#verModal").on("click", function () {
+    alert("a")
+    $("#txtModalCarreras").append(loader())
+    $.ajax({
+        url: "./Php/verCarreras.php",
+        type: 'POST',
+        dataType: 'json',
+        success: function (respuesta) {
+            $("#carrerasContenido").empty()
+            for (let i = 0; i < respuesta.length; i++) {
+                $("#txtModalCarreras").append(getTarjetas())
+                $("#txtModalCarreras").text(`<p>${respuesta[i].nombreCarrera}</p>`)
+                $("#txtModalCarreras").text(`<p>Localización : ${respuesta[i].localizacion}</p>`)
+                $("#txtModalCarreras .loader").remove()
+            }
+        },
+        error: function (e) {
+            console.log(e)
+        }
+    })
+    $("#modalCarreras").show()
+})
+
 

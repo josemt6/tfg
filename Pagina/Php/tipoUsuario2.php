@@ -1,5 +1,5 @@
 <?php
 include("./include/BD.php");
-$usuario = "jose";
+$usuario = $_POST['usuario'];
 echo Base::getTipoUsuario2($usuario);
 ?>
