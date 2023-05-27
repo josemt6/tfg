@@ -10823,4 +10823,7 @@ a {
   100% {
     transform: rotate(360deg);
   }
+}
+.verModal:hover {
+  background-color: rgb(0, 81, 255);
 }/*# sourceMappingURL=estilo.css.map */

@@ -17,10 +17,9 @@ function getTarjetas() {
         "<div class='card-body'>" +
         "<h5 class='card-title'></h5>" +
         "<p class='card-text'></p>" +
-        "<button type='button' class='btn btn-card' id='verModal' data-bs-toggle='modal' data-bs-target='#modalCarreras'>" +
-        "Visitar" +
-        "</button>" +
-        "</div>" +
+        "<div class='text-center'>" +
+        "" +
+        "</div></div>" +
         "</div>"
 }
 
@@ -55,7 +54,7 @@ $(document).ready(function () {
                 $("#carrerasContenido").empty()
                 for (let i = 0; i < respuesta.length; i++) {
                     $("#carrerasContenido").append(getTarjetas())
-                    $(".card-title").eq(i).text(respuesta[i].nombreCarrera)
+                    $(".card-title").eq(i).html(respuesta[i].nombreCarrera + "  <div class='verModal d-inline rounded-circle'><i class='bi bi-info-circle'></i></div>")
                     $(".card-text").eq(i).text(`Localización : ${respuesta[i].localizacion}`)
                 }
             },
@@ -64,8 +63,6 @@ $(document).ready(function () {
             }
         })
     })
-
-    //Modal con la información de las carreras y para apuntarse
 
     //Recargar la página con el logo
 
@@ -171,29 +168,66 @@ $(document).ready(function () {
 
 })
 
-$("#verModal").on("click", function () {
-    let carrera = $(this).parent().find("h5").eq(0).text()
+//Modal con la información de las carreras y para apuntarse
+
+$(document).on("click", ".verModal", function () {
+    let carrera = $(this).parent().text()
     $.ajax({
         url: "./Php/getCarrera.php",
-        data: {"nombreCarrera" : carrera},
+        data: { "nombreCarrera": carrera },
         type: 'POST',
         dataType: 'json',
         success: function (respuesta) {
-            console.log(respuesta)
             $("#tituloModal").text(respuesta.nombreCarrera)
-            $("#fechaModal").text(`Fecha de la carrera ${respuesta.fechaCarrera}`)
+            $("#fechaModal").text(`Fecha de la carrera : ${respuesta.fechaCarrera}`)
             $("#estadoModal").text(`Estado : ${respuesta.estado}`)
             $("#numsModal").text(`${respuesta.numParticipantes} / ${respuesta.maxParticipantes}`)
             $("#longitudModal").text(`Longitud : ${respuesta.longitud} km`)
-            $("#desnivel").text(`Desnivel : ${respuesta.desnivel} %`)
+            $("#desnivelModal").text(`Desnivel : ${respuesta.desnivel} %`)
             $("#modoModal").text(`Modo de inscripción : ${respuesta.modoInscripcion}`)
             $("#tipoModal").text(`Tipo de carrera : ${respuesta.tipoCarrera}`)
+            if (respuesta.estado != "disponible") {
+                $("#inscribirse").toggleClass("disable")
+            }
         },
         error: function (e) {
             console.log(e)
         }
     })
-    $("#modalCarreras").show()
+    $("#modalCarreras").modal("show")
+})
+
+$(document).on("click", "#inscribirse", function () {
+    let usuario = localStorage.getItem("usuario")
+    let carrera = $("#tituloModal").text()
+    if (usuario == null) {
+        $("#txtModalInscripcion").empty()
+        $("#modalCarreras").modal("hide")
+        $("#txtModalInscripcion").append(`<h2 class='text-rojo'><i class="bi bi-exclamation-circle-fill"></i></i> Debes iniciar sesión para inscribirte!!</h2>`)
+        $("#modalInscripcion").modal("show")
+    } else if($("#tipoUsuario").text()=="Organizador"){
+        $("#txtModalInscripcion").empty()
+        $("#modalCarreras").modal("hide")
+        $("#txtModalInscripcion").append(`<h2 class='text-rojo'><i class="bi bi-exclamation-circle-fill"></i></i> No puedes inscribirte siendo organizador!!</h2>`)
+        $("#modalInscripcion").modal("show")
+    } else {
+        alert(a)
+        $.ajax({
+            url: "../Php/inscribirse.php",
+            data: { "usuario": usuario, "carrera": carrera },
+            type: 'POST',
+            success: function (respuesta) {
+                if (respuesta == 1) {
+                    $("#txtModalInscripcion").empty()
+                    $("#txtModalInscripcion").append(`<h2 class='text-azul'><i class="bi bi-check-circle-fill"></i> Inscrito correctamente</h2>`)
+                    $("#modalInscripcion").modal("show")
+                }
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    }
 })
 
 

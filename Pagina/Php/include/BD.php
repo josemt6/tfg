@@ -53,12 +53,12 @@ class Base
         $row = $resultado->fetch();
         return $row;
     }
-    public static function getUsuario($usuario,$clave){
+    public static function getUsuario($usuario){
         $conexion = self::conectar();
-        $sql = "SELECT usuario from usuario where usuario='". $usuario ."' and clave='". $clave ."'";
+        $sql = "SELECT codUsuario from usuario where usuario='". $usuario ."'";
         $rd = $conexion->query($sql);
-        $rdo = $rd->execute();
-        return $rdo;
+        $rdo = $rd->fetch();
+        return $rdo['codUsuario'];
     }
     public static function getCarrera($nombreCarrera){
         $conexion = self::conectar();
@@ -66,6 +66,31 @@ class Base
         $rd = $conexion->query($sql);
         $rdo = $rd->fetch();
         return json_encode($rdo);
+    }
+    public static function getCodCarrera($nombreCarrera){
+        $conexion = self::conectar();
+        $sql = "SELECT codCarrera from carreras WHERE nombreCarrera='". $nombreCarrera ."'";
+        $rd = $conexion->query($sql);
+        $rdo = $rd->fetch();
+        return $rdo['codCarrera'];
+    }
+    function updateNumParticipantes($carrera){
+        $codCarrera = self::getCodCarrera($carrera);
+        $conexion = self::conectar();
+        $sql = "UPDATE carreras SET numParticipantes=numParticipantes+1 WHERE codCarrera=:codCarrera";
+        $rd = $conexion->prepare($sql);
+        $rdo = $rd->execute(array(":codCarrera"=>$codCarrera));
+    }
+    public static function inscribirseCarrera($usuario , $carrera){
+        $codUsuario = self::getUsuario($usuario);
+        $codCarrera = self::getCodCarrera($carrera);
+        self::updateNumParticipantes($carrera);
+        $tiempo = rand(60,240);
+        $conexion = self::conectar();
+        $sql = "INSERT INTO dorsal (codUsuario,codCarrera,tiempo) VALUES (:codUsuario,:codCarrera,:tiempo)";
+        $rd = $conexion->prepare($sql);
+        $rdo = $rd->execute(array(":codUsuario"=>$codUsuario,":codCarrera"=>$codCarrera,":tiempo"=>$tiempo));
+        return $rdo;
     }
 }
 ?>
