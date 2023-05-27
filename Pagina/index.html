@@ -137,16 +137,26 @@
 
     <div class="modal fade" id="modalCarreras" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content bg-negro text-white">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <img src="imagnes/R-tracker-logos_transparent.png" alt="LOGO" width="50">  
+              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="txtModalCarreras">
+            <div class="modal-body text-center" id="txtModalCarreras">
+                <h1 class="my-3" id="tituloModal"></h1>
+                <div class="d-flex justify-content-center gap-5">
+                    <p id="fechaModal"></p>
+                    <p id="estadoModal"></p>
+                </div>
+                <p id="numsModal"></p>
+                <p id="longitudModal"></p>
+                <p id="desnivelModal"></p>
+                <p id="modoModal"></p>
+                <p id="tipoModal"></p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-azul" id="inscribirse">Inscribirse</button>
             </div>
           </div>
         </div>

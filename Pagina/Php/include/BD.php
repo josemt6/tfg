@@ -60,5 +60,12 @@ class Base
         $rdo = $rd->execute();
         return $rdo;
     }
+    public static function getCarrera($nombreCarrera){
+        $conexion = self::conectar();
+        $sql = "SELECT * from carreras WHERE nombreCarrera='". $nombreCarrera ."'";
+        $rd = $conexion->query($sql);
+        $rdo = $rd->fetch();
+        return json_encode($rdo);
+    }
 }
 ?>

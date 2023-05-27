@@ -57,7 +57,6 @@ $(document).ready(function () {
                     $("#carrerasContenido").append(getTarjetas())
                     $(".card-title").eq(i).text(respuesta[i].nombreCarrera)
                     $(".card-text").eq(i).text(`Localización : ${respuesta[i].localizacion}`)
-                    console.log(respuesta[i])
                 }
             },
             error: function (e) {
@@ -157,11 +156,6 @@ $(document).ready(function () {
                 }
             }
         })
-        alert(organizador)
-        if (organizador) {
-
-        } else {
-        }
     }
 
 
@@ -178,20 +172,22 @@ $(document).ready(function () {
 })
 
 $("#verModal").on("click", function () {
-    alert("a")
-    $("#txtModalCarreras").append(loader())
+    let carrera = $(this).parent().find("h5").eq(0).text()
     $.ajax({
-        url: "./Php/verCarreras.php",
+        url: "./Php/getCarrera.php",
+        data: {"nombreCarrera" : carrera},
         type: 'POST',
         dataType: 'json',
         success: function (respuesta) {
-            $("#carrerasContenido").empty()
-            for (let i = 0; i < respuesta.length; i++) {
-                $("#txtModalCarreras").append(getTarjetas())
-                $("#txtModalCarreras").text(`<p>${respuesta[i].nombreCarrera}</p>`)
-                $("#txtModalCarreras").text(`<p>Localización : ${respuesta[i].localizacion}</p>`)
-                $("#txtModalCarreras .loader").remove()
-            }
+            console.log(respuesta)
+            $("#tituloModal").text(respuesta.nombreCarrera)
+            $("#fechaModal").text(`Fecha de la carrera ${respuesta.fechaCarrera}`)
+            $("#estadoModal").text(`Estado : ${respuesta.estado}`)
+            $("#numsModal").text(`${respuesta.numParticipantes} / ${respuesta.maxParticipantes}`)
+            $("#longitudModal").text(`Longitud : ${respuesta.longitud} km`)
+            $("#desnivel").text(`Desnivel : ${respuesta.desnivel} %`)
+            $("#modoModal").text(`Modo de inscripción : ${respuesta.modoInscripcion}`)
+            $("#tipoModal").text(`Tipo de carrera : ${respuesta.tipoCarrera}`)
         },
         error: function (e) {
             console.log(e)
