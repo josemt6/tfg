@@ -74,22 +74,47 @@ class Base
         $rdo = $rd->fetch();
         return $rdo['codCarrera'];
     }
-    function updateNumParticipantes($carrera){
+    public static function updateNumParticipantes($carrera){
         $codCarrera = self::getCodCarrera($carrera);
         $conexion = self::conectar();
         $sql = "UPDATE carreras SET numParticipantes=numParticipantes+1 WHERE codCarrera=:codCarrera";
         $rd = $conexion->prepare($sql);
         $rdo = $rd->execute(array(":codCarrera"=>$codCarrera));
     }
+    public static function getNumParticipantes($carrera){
+        $codCarrera = self::getCodCarrera($carrera);
+        $conexion = self::conectar();
+        $sql = "SELECT numParticipantes from carreras WHERE codCarrera='". $codCarrera ."'";
+        $rd = $conexion->query($sql);
+        $row = $rd->fetch();
+        return $row['numParticipantes'];
+    }
     public static function inscribirseCarrera($usuario , $carrera){
+        $numero = self::getNumParticipantes($carrera)+1;
         $codUsuario = self::getUsuario($usuario);
         $codCarrera = self::getCodCarrera($carrera);
         self::updateNumParticipantes($carrera);
         $tiempo = rand(60,240);
         $conexion = self::conectar();
-        $sql = "INSERT INTO dorsal (codUsuario,codCarrera,tiempo) VALUES (:codUsuario,:codCarrera,:tiempo)";
+        $sql = "INSERT INTO dorsal (codUsuario,codCarrera,tiempo,numero) VALUES (:codUsuario,:codCarrera,:tiempo,:numero)";
         $rd = $conexion->prepare($sql);
-        $rdo = $rd->execute(array(":codUsuario"=>$codUsuario,":codCarrera"=>$codCarrera,":tiempo"=>$tiempo));
+        $rdo = $rd->execute(array(":codUsuario"=>$codUsuario,":codCarrera"=>$codCarrera,":tiempo"=>$tiempo,":numero" => $numero));
+        return $rdo;
+    }
+    public static function eliminarCarrera($carrera){
+        $codCarrera = self::getCodCarrera($carrera);
+        $conexion = self::conectar();
+        $sql = "DELETE from  carreras WHERE codCarrera=:codCarrera";
+        $rd = $conexion->prepare($sql);
+        $rdo = $rd->execute(array(":codCarrera"=>$codCarrera));
+        return $rdo;
+    }
+    public static function editarCarrera($carrera,$nombre,$localizacion,$longitud,$desnivel,$modo,$tipo,$fecha,$estado){
+        $codCarrera = self::getCodCarrera($carrera);
+        $conexion = self::conectar();
+        $sql = "UPDATE carreras SET nombreCarrera=:nombre , localizacion=:localizacion , fechaCarrera=:fecha , estado=:estado , longitud=:longitud , desnivel=:desnivel , modoInscripcion=:modo , tipoCarrera=:tipo";
+        $rd = $conexion->prepare($sql);
+        $rdo = $rd->execute(array(":nombre"=>$nombre,":localizacion"=>$localizacion,":fecha"=>$fecha,":estado" => $estado,":longitud" => $longitud , ":desnivel" => $desnivel , ":modo" => $modo , ":tipo" => $tipo));
         return $rdo;
     }
 }

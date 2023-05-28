@@ -10792,6 +10792,31 @@ a {
   font-size: 4rem;
 }
 
+.iconoCards {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  border: 1px solid white;
+  font-size: 2rem;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.imgListado {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.imgListado img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .loader {
   width: 48px;
   height: 48px;
@@ -10825,5 +10850,5 @@ a {
   }
 }
 .verModal:hover {
-  background-color: rgb(0, 81, 255);
+  color: rgb(0, 81, 255);
 }/*# sourceMappingURL=estilo.css.map */

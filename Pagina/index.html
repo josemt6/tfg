@@ -18,7 +18,8 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary" id="cabecera">
         <div class="container-fluid">
-            <a class="navbar-brand text-whiteSmoke p-0" href="#" id="logo"><img src="imagnes/R-tracker-logos_transparent.png" alt="LOGO" width="100"></a>
+            <a class="navbar-brand text-whiteSmoke p-0" href="#" id="logo"><img
+                    src="imagnes/R-tracker-logos_transparent.png" alt="LOGO" width="100"></a>
             <button class="navbar-toggler bg-whiteSmoke" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -26,7 +27,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active  text-whiteSmoke" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link active  text-whiteSmoke" aria-current="page" href="#" id="inicio">Inicio</a>
                     <a class="nav-link active  text-whiteSmoke" href="#" id="carrerasVer">Carreras</a>
                     <a class="nav-link active  text-whiteSmoke" href="#" id="clasificaciones">Clasificaciones</a>
                     <a class="nav-link active  text-whiteSmoke" id="sesion" data-bs-toggle="offcanvas"
@@ -80,14 +81,17 @@
 
     <section class="container-fluid mb-3" id="carreras">
         <h1 class="my-4 text-center">Listado de carreras</h1>
-        <div class="row justify-content-around" id="carrerasContenido">
+        <div class="row justify-content-center" id="carrerasContenido">
         </div>
     </section>
 
     <!--Contenido-->
 
-    <section class="container-fluid" id="contenido">
-
+    <section class="container-fluid my-3" id="contenido">
+        <h1 class="my-4 text-center">Organización de las carreras</h1>
+        <p class="text-center text-azul" id="mensajeOrganizar"></p>
+        <div class="container" id="lista">
+        </div>
     </section>
 
     <section class="container-fluid" id="footer">
@@ -129,7 +133,7 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body" id="contenidoCanvas">
-            
+
         </div>
     </div>
 
@@ -137,48 +141,51 @@
 
     <div class="modal fade" id="modalCarreras" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content bg-negro text-white">
-            <div class="modal-header">
-                <img src="imagnes/R-tracker-logos_transparent.png" alt="LOGO" width="50">  
-              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center" id="txtModalCarreras">
-                <h1 class="my-3" id="tituloModal"></h1>
-                <div class="d-flex justify-content-center gap-5">
-                    <p id="fechaModal"></p>
-                    <p id="estadoModal"></p>
+            <div class="modal-content bg-negro text-white">
+                <div class="modal-header">
+                    <img src="imagnes/R-tracker-logos_transparent.png" alt="LOGO" width="50">
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
-                <p id="numsModal"></p>
-                <p id="longitudModal"></p>
-                <p id="desnivelModal"></p>
-                <p id="modoModal"></p>
-                <p id="tipoModal"></p>
+                <div class="modal-body text-center" id="txtModalCarreras">
+                    <h1 class="my-3" id="tituloModal"></h1>
+                    <div class="d-flex justify-content-center gap-5">
+                        <p id="fechaModal"></p>
+                        <p id="estadoModal"></p>
+                    </div>
+                    <p id="numsModal"></p>
+                    <p id="longitudModal"></p>
+                    <p id="desnivelModal"></p>
+                    <p id="modoModal"></p>
+                    <p id="tipoModal"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                            class="bi bi-x-circle-fill"></i> Close</button>
+                    <button type="button" class="btn btn-azul" id="inscribirse"><i class="bi bi-pencil"></i>
+                        Inscribirse</button>
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Close</button>
-              <button type="button" class="btn btn-azul" id="inscribirse"><i class="bi bi-pencil"></i> Inscribirse</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-      <div class="modal fade" id="modalInscripcion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalInscripcion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content bg-negro text-white">
-            <div class="modal-header">
-                <img src="imagnes/R-tracker-logos_transparent.png" alt="LOGO" width="50">  
-              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content bg-negro text-white">
+                <div class="modal-header">
+                    <img src="imagnes/R-tracker-logos_transparent.png" alt="LOGO" width="50">
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" id="txtModalInscripcion">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Close</button>
+                </div>
             </div>
-            <div class="modal-body text-center" id="txtModalInscripcion">
-                
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-azul">Aceptar</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 
