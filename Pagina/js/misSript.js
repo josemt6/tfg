@@ -12,15 +12,21 @@ function contenidoCanvasSesion() {
 }
 
 function getTarjetas() {
-    return "<div class='card col-md-3 col-3 p-0 my-2 mx-2'>" +
-        "<img src='./imagnes/fotoBadajoz.jpg' class='card-img-top img-fluid' alt='...'><div class='iconoCards rounded-circle bg-azul'href='#canvasSesion' role='button' aria-controls='canvasSesion' data-bs-toggle='offcanvas'>" + $("#icono").text() + "</div>" +
-        "<div class='card-body'>" +
-        "<h5 class='card-title'></h5>" +
-        "<p class='card-text'></p>" +
-        "<div class='text-center'>" +
-        "" +
-        "</div></div>" +
-        "</div>"
+    return `<div class='card col-md-5 col-10 p-0 my-2 mx-2'>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m34!1m12!1m3!1d3128117.8627206637!2d-2.0506700062390806!3d40.03518650845477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m19!3e2!4m5!1s0x12a49816718e30e5%3A0x44b0fb3d4f47660a!2sBarcelona!3m2!1d41.3873974!2d2.168568!4m5!1s0x12a5f52b4a25fb0b%3A0xa00947091997280!2sAndorra%20la%20Vella%2C%20Andorra!3m2!1d42.5063174!2d1.5218355!4m5!1s0xd634222a43ab56d%3A0x47d790cefef6f9ff!2sCartagena!3m2!1d37.615694399999995!2d-0.9892242!5e0!3m2!1ses!2ses!4v1685374727130!5m2!1ses!2ses" style="border:0;" class="card-img-top" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class='iconoCards rounded-circle bg-azul'href='#canvasSesion' role='button' aria-controls='canvasSesion' data-bs-toggle='offcanvas'>${$("#icono").text()}</div>
+        <div class='card-body'>
+        <h5 class='card-title'></h5>
+        <p class='card-text'></p>
+        <div class='text-center'>
+        </div></div>
+        </div>`
+}
+
+function getMiniTarjetas() {
+    return `<div class="card col-2 carreraClasificacion text-center">
+    <h3 class="nomCarreraClasificacion">Carrera</h3>
+    </div>`
 }
 
 function formularioEditar() {
@@ -29,7 +35,7 @@ function formularioEditar() {
             <label for="nombreCarrera">Nombre carrera</label><input type="text" value="" class="form-control my-1 nombreCarrera">
             <label for="localizacionCarrera">Localizacion</label><input type="text" value="" class="form-control my-1 localizacionCarrera">
             <label for="longitudCarrera">Longitud</label><input type="text" value="" class="form-control my-1 longitudCarrera">
-            <label for="desnivelCarrera">desnivelCarrera</label><input type="text" value="" class="form-control my-1 desnivelCarrera">
+            <label for="desnivelCarrera">Desnivel</label><input type="text" value="" class="form-control my-1 desnivelCarrera">
             <label for="modoInscripcionCarrera">Modo de inscripción</label>
             <select name="modoInscripcion" class="form-select my-1 modoInscripcionCarrera">
                 <option value="1">Normal</option>
@@ -40,13 +46,29 @@ function formularioEditar() {
             <label for="estadoCarrera">Estado</label><input type="text" value="" class="form-control my-1 estadoCarrera">
             <div class="text-center">
             <button class="btn btn-azul btnEditar my-2 mx-auto">Editar carrera</button>
-            </div>
-    </div>`
+            </div></div>`
+}
+
+function formularioAdd(){
+    return `
+            <h4 class="text-center">Añadir registro</h4>
+            <label for="nombreCarrera">Nombre carrera</label><input type="text" value="" class="form-control my-1 nombreCarrera">
+            <label for="localizacionCarrera">Localizacion</label><input type="text" value="" class="form-control my-1 localizacionCarrera">
+            <label for="longitudCarrera">Longitud</label><input type="text" value="" class="form-control my-1 longitudCarrera">
+            <label for="desnivelCarrera">Desnivel</label><input type="text" value="" class="form-control my-1 desnivelCarrera">
+            <label for="modoInscripcionCarrera">Modo de inscripción</label>
+            <select name="modoInscripcion" class="form-select my-1 modoInscripcionCarrera">
+                <option value="1">Normal</option>
+                <option value="2">Email</option>
+            </select>
+            <label for="tipoCarrera">Tipo de carrera</label><input type="text" value="" class="form-control my-1 tipoCarrera">
+            <label for="fechaCarrera">Fecha carrera</label><input type="date" name="" id="" class="form-control fechaCarrera">
+            <label for="estadoCarrera">Estado</label><input type="text" value="" class="form-control my-1 estadoCarrera">`
 }
 
 function getListadoCarreras() {
     return `<div class="listadoCarreras bg-whiteSmoke row p-2">
-        <div class="col-6 d-flex">
+        <div class="col-md-6 col-10 d-flex">
             <div class="imgListado bg-negro rounded text-white"><img src='./imagnes/fotoBadajoz.jpg' class='card-img-top img-fluid' alt='...'></div>
             <div class="especificaciones ms-3 d-flex flex-column justify-content-center">
                 <h3 class="nombreListado"></h3>
@@ -54,7 +76,7 @@ function getListadoCarreras() {
                 <p class='mensajeEditar'></p>
             </div>
         </div>
-        <div class="col-6 d-flex justify-content-end align-items-end">
+        <div class="col-md-6 col-2 d-flex justify-content-end align-items-end">
             <button class="eliminarListado btn btn-rojo mx-2 p-2"><i class="bi bi-trash3"></i></button>
             <button class="editarListado btn btn-azul mx-2 p-2"><i class="bi bi-pencil-square"></i></button>
         </div>
@@ -81,6 +103,7 @@ $(document).ready(function () {
     //Ocultar los section
     $("#carreras").toggleClass("d-none")
     $("#contenido").toggleClass("d-none")
+    $("#clasificacionesCont").toggleClass("d-none")
 
     //Ver tarjetas de las carreras
 
@@ -225,7 +248,7 @@ $(document).on("click", ".verModal", function () {
             $("#modoModal").text(`Modo de inscripción : ${respuesta.modoInscripcion}`)
             $("#tipoModal").text(`Tipo de carrera : ${respuesta.tipoCarrera}`)
             if (respuesta.estado != "disponible") {
-                $("#inscribirse").toggleClass("disable")
+                $("#inscribirse").toggleClass("disabled")
             }
         },
         error: function (e) {
@@ -288,6 +311,13 @@ $(document).on("click", "#organizar", function () {
             console.log(e)
         }
     })
+})
+
+//Añadir carrera
+
+$(document).on("click","#btnAddCarrera" , function(){
+    $("#txtModalAdd").append(formularioAdd())
+    $("#modalAdd").modal("show")
 })
 
 //Eliminar carrera de los listados y de la bd
@@ -386,3 +416,22 @@ $(document).on("click", ".btnEditar", function () {
     })
 })
 
+//Apartado de las clasificaciones
+
+$(document).on("click", "#clasificaciones", function () {
+    $("#clasificacionesCont").toggleClass("d-none")
+    $.ajax({
+        url: "./Php/getCarrerasTerminadas.php",
+        type: 'POST',
+        dataType: 'json',
+        success: function (respuesta) {
+            for (let i = 0; i < respuesta.length; i++) {
+                $("#listadoCarrerasClas").append(getMiniTarjetas())
+                $(".nomCarreraClasificacion").eq(i).text(respuesta[i].nombreCarrera)
+            }
+        },
+        error: function (e) {
+            console.log(e)
+        }
+    })
+})

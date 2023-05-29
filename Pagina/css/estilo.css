@@ -10678,7 +10678,7 @@ textarea.form-control-lg {
 }
 
 #img1 {
-  height: 70vh;
+  height: 80vh;
   background-image: url("../imagnes/fotoHero.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -10687,7 +10687,7 @@ textarea.form-control-lg {
 }
 
 #img2 {
-  height: 70vh;
+  height: 80vh;
   background-image: url("../imagnes/foto2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -10696,7 +10696,7 @@ textarea.form-control-lg {
 }
 
 #img3 {
-  height: 70vh;
+  height: 80vh;
   background-image: url("../imagnes/foto3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -10797,11 +10797,12 @@ a {
   height: 50px;
   position: absolute;
   top: 3%;
-  left: 3%;
+  right: 3%;
   border: 1px solid white;
   font-size: 2rem;
   vertical-align: middle;
   text-align: center;
+  color: white;
 }
 
 .imgListado {

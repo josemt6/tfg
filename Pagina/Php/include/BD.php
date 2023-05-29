@@ -117,5 +117,17 @@ class Base
         $rdo = $rd->execute(array(":nombre"=>$nombre,":localizacion"=>$localizacion,":fecha"=>$fecha,":estado" => $estado,":longitud" => $longitud , ":desnivel" => $desnivel , ":modo" => $modo , ":tipo" => $tipo));
         return $rdo;
     }
+    public static function getCarrerasTerminadas(){
+        $conexion = self::conectar();
+        $sql = "SELECT * FROM carreras WHERE estado='finalizada'";
+        $resultado = $conexion->query($sql);
+        $row = $resultado->fetch();
+        return json_encode($row);
+    }
+    public static function addCarrera(){
+        $conexion = self::conectar();
+        $sql = "INSERT INTO carreras (nombreCarrera,localizacion,fechaCarrera,estado,numParticipantes,maxParticipantes,longitud,desnivel,modoInscripcion,tipoCarrera) VALUES (:nombreCarrera,:localizacion,:fechaCarrera,:estado,:numParticipantes,:maxParticipantes,:longitud,:desnivel,:mnodoInscripcion,:tipoCarrera)";
+        
+    }
 }
 ?>
