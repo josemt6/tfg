@@ -1,5 +1,5 @@
 <?php
 include("./include/BD.php");
-$usuario = "jose2";
+$usuario = $_POST['usuario'];
 echo Base::listadoInscripciones($usuario);
 ?>

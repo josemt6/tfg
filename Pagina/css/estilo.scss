@@ -5,6 +5,7 @@ $negro:#080504;
 $azul : rgb(0, 81, 255);
 $rojo: rgb(243, 2, 2);
 $dorado : rgb(163, 148, 7);
+$verde : rgb(10, 243, 30);
 $theme-colors: (
   "secondary" : $secondary,
   "whiteSmoke" : $whiteSmoke,
@@ -12,7 +13,8 @@ $theme-colors: (
   "negro": $negro,
   "azul" : $azul,
   "rojo" : $rojo,
-  "dorado" : $dorado
+  "dorado" : $dorado,
+  "verde" : $verde
 );
 
 $carousel-control-color:             black;
