@@ -13,9 +13,6 @@
     </style>
     <script src="./js/jquery-3.6.0.min.js"></script>
     <script>
-        function registrar(usuario, clave, nombre, tipo, fechaNacimiento, localidad) {
-
-        }
         $(document).ready(function () {
             $.ajax({
                 url: "./Php/tipoUsuario.php",
@@ -45,7 +42,7 @@
                             "tipoUsuario": tipo,
                             "fechaNacimiento": fechaNacimiento,
                         },
-                        type: 'POST',
+                        type: 'GET',
                         success: function (respuesta) {
                             if (respuesta == false) {
                                 $("#txtModalValidacion").text("Algo ha salido mal en el registro de usuario.")
@@ -76,13 +73,13 @@
                 <form action="registrar.php" method="post" enctype="multipart/form-data">
                     <h1 class="text-center my-4 p-3">Registro de usuario</h1>
                     <label for="usuario" class="text-start">Usuario*</label><input type="text" name="usuario"
-                        id="usuario" class="my-2 form-control" maxlength="20" minlength="1" pattern="[a-zA-Z0-9\ ]" required
+                        id="usuario" class="my-2 form-control" maxlength="20" minlength="1" pattern="" required
                         >
                     <label for="usuario" class="text-start">Nombre completo*</label><input type="text"
                         name="nombreUsuario" id="nombreUsuario" class="my-2 form-control" maxlength="30" minlength="1"
-                        pattern="[a-zA-Z0-9\ ]" required>
+                        pattern="" required>
                     <label for="clave">Clave*</label><input type="password" name="clave" id="clave"
-                        class="my-2 form-control" maxlength="20" minlength="1" pattern="[a-zA-Z0-9\ ]" required>
+                        class="my-2 form-control" maxlength="20" minlength="1" pattern="" required>
                     <label for="tipoUsuario" class="text-start">Tipo Usuario</label>
                     <select name="tipoUsuario" id="tipoUsuario" class="form-control my-2">
 

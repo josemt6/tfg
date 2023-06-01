@@ -40,7 +40,7 @@ class Base
     }
     public static function registrarse($usuario,$clave,$tipoUsuario,$localidad,$fechaNacimineto,$nombreUsuario){
         $conexion = self::conectar();
-        $sql = "INSERT INTO usuario (usuario,clave,codTipoUsuario,localidad,fechaNacimiento,nombreUsuario) VALUES (:usuario,md5(:clave),:codTipoUsuario,:localidad,:fechaNacimiento,:nombreUsuario)";
+        $sql = "INSERT INTO usuario (usuario,clave,codTipoUsuario,localidad,fechaNacimiento,nombreUsuario) VALUES (:usuario,:clave,:codTipoUsuario,:localidad,:fechaNacimiento,:nombreUsuario)";
         $resultado = $conexion->prepare($sql);
         $row = $resultado->execute(array(":usuario" => $usuario, ":clave" => $clave, ":codTipoUsuario" => $tipoUsuario, ":localidad" => $localidad, ":fechaNacimiento" => $fechaNacimineto, ":nombreUsuario" => $nombreUsuario));
         $resultado->closeCursor();
@@ -73,6 +73,13 @@ class Base
         $rd = $conexion->query($sql);
         $rdo = $rd->fetch();
         return $rdo['codCarrera'];
+    }
+    public static function getCodUsuario($usuario){
+        $conexion = self::conectar();
+        $sql = "SELECT codUsuario from usuario WHERE usuario='". $usuario ."'";
+        $rd = $conexion->query($sql);
+        $rdo = $rd->fetch();
+        return $rdo['codUsuario'];
     }
     public static function updateNumParticipantes($carrera){
         $codCarrera = self::getCodCarrera($carrera);
@@ -109,12 +116,12 @@ class Base
         $rdo = $rd->execute(array(":codCarrera"=>$codCarrera));
         return $rdo;
     }
-    public static function editarCarrera($carrera,$nombre,$localizacion,$longitud,$desnivel,$modo,$tipo,$fecha,$estado){
+    public static function editarCarrera($carrera,$modo,$fecha,$estado){
         $codCarrera = self::getCodCarrera($carrera);
         $conexion = self::conectar();
-        $sql = "UPDATE carreras SET nombreCarrera=:nombre , localizacion=:localizacion , fechaCarrera=:fecha , estado=:estado , longitud=:longitud , desnivel=:desnivel , modoInscripcion=:modo , tipoCarrera=:tipo";
+        $sql = "UPDATE carreras SET fechaCarrera=:fecha , estado=:estado , modoInscripcion=:modo WHERE codCarrera=:codCarrera";
         $rd = $conexion->prepare($sql);
-        $rdo = $rd->execute(array(":nombre"=>$nombre,":localizacion"=>$localizacion,":fecha"=>$fecha,":estado" => $estado,":longitud" => $longitud , ":desnivel" => $desnivel , ":modo" => $modo , ":tipo" => $tipo));
+        $rdo = $rd->execute(array(":fecha"=>$fecha,":estado" => $estado, ":modo" => $modo,":codCarrera"=>$codCarrera));
         return $rdo;
     }
     public static function getCarrerasTerminadas(){
@@ -124,10 +131,44 @@ class Base
         $row = $resultado->fetch();
         return json_encode($row);
     }
-    public static function addCarrera(){
+    public static function getClasificacionCarrera($carrera){
+        $codCarrera = self::getCodCarrera($carrera);
         $conexion = self::conectar();
-        $sql = "INSERT INTO carreras (nombreCarrera,localizacion,fechaCarrera,estado,numParticipantes,maxParticipantes,longitud,desnivel,modoInscripcion,tipoCarrera) VALUES (:nombreCarrera,:localizacion,:fechaCarrera,:estado,:numParticipantes,:maxParticipantes,:longitud,:desnivel,:mnodoInscripcion,:tipoCarrera)";
-        
+        $sql = "SELECT u.*, d.tiempo, d.numero FROM usuario u JOIN dorsal d ON d.codUsuario = u.codUsuario JOIN carreras c ON c.codCarrera = d.codCarrera WHERE d.codCarrera = '". $codCarrera ."' ORDER BY d.tiempo";
+        $rdo = $conexion->query($sql);
+        $row = $rdo->fetchAll();
+        return json_encode($row);
+    }
+    public static function cerrarEstado($carrera){
+        $codCarrera = self::getCodCarrera($carrera);
+        $conexion = self::conectar();
+        $sql = "UPDATE carreras SET estado='cerrada' WHERE codCarrera=:codCarrera";
+        $rd = $conexion->prepare($sql);
+        $rdo = $rd->execute(array(":codCarrera"=>$codCarrera));
+        return $rdo;
+    }
+    public static function disponibleEstado($carrera){
+        $codCarrera = self::getCodCarrera($carrera);
+        $conexion = self::conectar();
+        $sql = "UPDATE carreras SET estado='disponible' WHERE codCarrera=:codCarrera";
+        $rd = $conexion->prepare($sql);
+        $rdo = $rd->execute(array(":codCarrera"=>$codCarrera));
+        return $rdo;
+    }
+    public static function finalizarEstado($carrera){
+        $codCarrera = self::getCodCarrera($carrera);
+        $conexion = self::conectar();
+        $sql = "UPDATE carreras SET estado='finalizada' WHERE codCarrera=:codCarrera";
+        $rd = $conexion->prepare($sql);
+        $rdo = $rd->execute(array(":codCarrera"=>$codCarrera));
+        return $rdo;
+    }
+    public static function listadoInscripciones($usuario){
+        $conexion = self::conectar();
+        $sql = "SELECT c.* FROM dorsal d JOIN usuario u ON d.codUsuario = u.codUsuario JOIN carreras c ON c.codCarrera = d.codCarrera WHERE u.usuario = '". $usuario ."'";
+        $rdo = $conexion->query($sql);
+        $row = $rdo->fetchAll();
+        return json_encode($row);
     }
 }
 ?>

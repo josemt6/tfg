@@ -13,8 +13,7 @@ function contenidoCanvasSesion() {
 
 function getTarjetas() {
     return `<div class='card col-md-5 col-10 p-0 my-2 mx-2'>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m34!1m12!1m3!1d3128117.8627206637!2d-2.0506700062390806!3d40.03518650845477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m19!3e2!4m5!1s0x12a49816718e30e5%3A0x44b0fb3d4f47660a!2sBarcelona!3m2!1d41.3873974!2d2.168568!4m5!1s0x12a5f52b4a25fb0b%3A0xa00947091997280!2sAndorra%20la%20Vella%2C%20Andorra!3m2!1d42.5063174!2d1.5218355!4m5!1s0xd634222a43ab56d%3A0x47d790cefef6f9ff!2sCartagena!3m2!1d37.615694399999995!2d-0.9892242!5e0!3m2!1ses!2ses!4v1685374727130!5m2!1ses!2ses" style="border:0;" class="card-img-top" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <div class='iconoCards rounded-circle bg-azul'href='#canvasSesion' role='button' aria-controls='canvasSesion' data-bs-toggle='offcanvas'>${$("#icono").text()}</div>
+        <div class='card-img-top'><div class='iconoCards rounded-circle bg-azul'href='#canvasSesion' role='button' aria-controls='canvasSesion' data-bs-toggle='offcanvas'></div></div>
         <div class='card-body'>
         <h5 class='card-title'></h5>
         <p class='card-text'></p>
@@ -24,32 +23,40 @@ function getTarjetas() {
 }
 
 function getMiniTarjetas() {
-    return `<div class="card col-2 carreraClasificacion text-center">
+    return `<div class="card col-4 carreraClasificacion text-center">
     <h3 class="nomCarreraClasificacion">Carrera</h3>
     </div>`
+}
+
+function getClasificacion() {
+    return `<div class="row p-1 rounded">
+    <div class="posicion col-1"></div>
+    <div class="usuario col-1"></div>
+    <div class="nombreCorredor col-3"></div>
+    <div class="fechaClasificacion col-2"></div>
+    <div class="localidad col-2"></div>
+    <div class="tiempo col-2"></div>
+    <div class="numero col-1"></div>
+</div>`
 }
 
 function formularioEditar() {
     return `<div class='rounded bg-white p-5 col-6 offset-3'>
             <h4 class="text-center">Editar registro</h4>
-            <label for="nombreCarrera">Nombre carrera</label><input type="text" value="" class="form-control my-1 nombreCarrera">
-            <label for="localizacionCarrera">Localizacion</label><input type="text" value="" class="form-control my-1 localizacionCarrera">
-            <label for="longitudCarrera">Longitud</label><input type="text" value="" class="form-control my-1 longitudCarrera">
-            <label for="desnivelCarrera">Desnivel</label><input type="text" value="" class="form-control my-1 desnivelCarrera">
-            <label for="modoInscripcionCarrera">Modo de inscripción</label>
+            <label for="modoInscripcion">Modo de inscripcion de la carrera</label>
             <select name="modoInscripcion" class="form-select my-1 modoInscripcionCarrera">
-                <option value="1">Normal</option>
-                <option value="2">Email</option>
+                <option value="normal">Normal</option>
+                <option value="organizada">Email</option>
             </select>
-            <label for="tipoCarrera">Tipo de carrera</label><input type="text" value="" class="form-control my-1 tipoCarrera">
             <label for="fechaCarrera">Fecha carrera</label><input type="date" name="" id="" class="form-control fechaCarrera">
-            <label for="estadoCarrera">Estado</label><input type="text" value="" class="form-control my-1 estadoCarrera">
             <div class="text-center">
-            <button class="btn btn-azul btnEditar my-2 mx-auto">Editar carrera</button>
+            <button class="btn btn-azul btnEditar my-2 mx-auto">Editar carrera <i class="bi bi-pencil"></i></button>
+            <button class="btn btn-rojo btnCerrar my-2 mx-auto">Cerrar Inscripciones <i class="bi bi-x-circle"></i></button>
+            <button class="btn btn-rojo btnFinalizar my-2 mx-auto">Finalizar Carrera <i class="bi bi-card-checklist"></i></button>
             </div></div>`
 }
 
-function formularioAdd(){
+function formularioAdd() {
     return `
             <h4 class="text-center">Añadir registro</h4>
             <label for="nombreCarrera">Nombre carrera</label><input type="text" value="" class="form-control my-1 nombreCarrera">
@@ -63,7 +70,8 @@ function formularioAdd(){
             </select>
             <label for="tipoCarrera">Tipo de carrera</label><input type="text" value="" class="form-control my-1 tipoCarrera">
             <label for="fechaCarrera">Fecha carrera</label><input type="date" name="" id="" class="form-control fechaCarrera">
-            <label for="estadoCarrera">Estado</label><input type="text" value="" class="form-control my-1 estadoCarrera">`
+            <label for="recorrido">Recorrido</label><input type="text" value="" class="form-control my-1 recorrido">
+            <label for="maximo">Máximo de participantes</label><input type="text" value="" class="form-control my-1 maximo">`
 }
 
 function getListadoCarreras() {
@@ -104,6 +112,7 @@ $(document).ready(function () {
     $("#carreras").toggleClass("d-none")
     $("#contenido").toggleClass("d-none")
     $("#clasificacionesCont").toggleClass("d-none")
+    $("#listaInscripciones").toggleClass("d-none")
 
     //Ver tarjetas de las carreras
 
@@ -117,8 +126,14 @@ $(document).ready(function () {
                 $("#carrerasContenido").empty()
                 for (let i = 0; i < respuesta.length; i++) {
                     $("#carrerasContenido").append(getTarjetas())
+                    $(".card-img-top").eq(i).append(respuesta[i].Recorrido)
                     $(".card-title").eq(i).html(respuesta[i].nombreCarrera + "  <div class='verModal d-inline rounded-circle'><i class='bi bi-info-circle'></i></div>")
                     $(".card-text").eq(i).text(`Localización : ${respuesta[i].localizacion}`)
+                    if (localStorage.getItem("usuario") != null) {
+                        $(".iconoCards").eq(i).text($("#icono").text())
+                    } else {
+                        $(".iconoCards").eq(i).html(`<i class="bi bi-person-fill"></i>`)
+                    }
                 }
             },
             error: function (e) {
@@ -211,6 +226,7 @@ $(document).ready(function () {
                     $("#cabecera").css("background-color", "black")
                 } else if (datos == "corredor") {
                     $("#cabecera").css("background-color", "blue")
+                    $("#clasificaciones").after(`<a class="nav-link active  text-whiteSmoke" href="#" id="listadoInscripciones">Inscripciones</a>`)
                 }
             }
         })
@@ -315,9 +331,50 @@ $(document).on("click", "#organizar", function () {
 
 //Añadir carrera
 
-$(document).on("click","#btnAddCarrera" , function(){
+$(document).on("click", "#btnAddCarrera", function () {
     $("#txtModalAdd").append(formularioAdd())
     $("#modalAdd").modal("show")
+})
+
+$(document).on("click", "#addCarrera", function () {
+    let nombre = $("#txtModalAdd").find("input").eq(0).val()
+    let localizacion = $("#txtModalAdd").find("input").eq(1).val()
+    let longitud = $("#txtModalAdd").find("input").eq(2).val()
+    let desnivel = $("#txtModalAdd").find("input").eq(3).val()
+    let modoInscripcion = $("#txtModalAdd").find("select").eq(0).val()
+    let tipo = $("#txtModalAdd").find("input").eq(4).val()
+    let fecha = $("#txtModalAdd").find("input").eq(5).val()
+    let recorrido = $("#txtModalAdd").find("input").eq(6).val()
+    let maximo = $("#txtModalAdd").find("input").eq(7).val()
+    if (nombre != "" && localizacion != "" && longitud != "" && desnivel != "" && modoInscripcion != "" && tipo != "" && fecha != "" && recorrido != "" && maximo != "") {
+        $.ajax({
+            url: "./Php/addCarrera.php",
+            data: {
+                "nombre": nombre,
+                "localizacion": localizacion,
+                "longitud": longitud,
+                "desnivel": desnivel,
+                "modo": modoInscripcion,
+                "tipo": tipo,
+                "fecha": fecha,
+                "recorrido": recorrido,
+                "max": maximo
+            },
+            type: 'POST',
+            success: function (respuesta) {
+                if (respuesta == 1) {
+                    location.reload()
+                } else {
+                    alert("Algo ha salido mal!")
+                }
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    } else {
+        alert("Debes insertar todos los campos!!")
+    }
 })
 
 //Eliminar carrera de los listados y de la bd
@@ -330,7 +387,7 @@ $(document).on("click", ".eliminarListado", function () {
         type: 'POST',
         success: function (respuesta) {
             if (respuesta == true) {
-                $("#mensajeOrganizar").text("Carrera borrada correctamente")
+                location.reload()
             } else {
                 $("#mensajeOrganizar").text("No se ha conseguido borrar la carrera")
                 $("#mensajeOrganizar").css("color", "red")
@@ -340,32 +397,67 @@ $(document).on("click", ".eliminarListado", function () {
             console.log(e)
         }
     })
-    location.reload()
 })
 
 //Mostrar formulario para editar las carreras
 
 $(document).on("click", ".editarListado", function () {
-    let carreraEditar = $(this).parent().parent().find("div").eq(0).find(".nombreListado").eq(0).text()
     $(this).parent().parent().find(".formularioEditar").eq(0).empty()
     $(this).parent().parent().find(".formularioEditar").eq(0).toggleClass("d-none")
     $(this).parent().parent().find(".formularioEditar").eq(0).append(formularioEditar())
+})
+
+//Editar carrera
+
+$(document).on("click", ".btnEditar", function () {
+    let carreraEditar = $(this).parent().parent().parent().parent().find("div").eq(0).find(".nombreListado").eq(0).text()
+    let modoInscripcionEditar = $(this).parent().parent().find("select").eq(0).val()
+    let fechaEditar = $(this).parent().parent().find("input").eq(5).val()
+    let estado = $(this).parent().parent().find("input").eq(6).val()
+    if (nombreEditar != "" && localizacionEditar != "" && localizacionEditar != "" && longitudEditar != "" && desnivelEditar != "" && tipoCarreraEditar != "" && modoInscripcionEditar != "" && fechaEditar != "" && estado != "") {
+        $.ajax({
+            url: "./Php/editarCarrera.php",
+            data: {
+                "carrera": carreraEditar,
+                "modo": modoInscripcionEditar,
+                "fecha": fechaEditar,
+                "estado": estado
+            },
+            type: 'POST',
+            success: function (respuesta) {
+                $(this).parent().parent().find(".formularioEditar").eq(0).empty()
+                $(this).parent().parent().find(".formularioEditar").eq(0).toggleClass("d-none")
+                if (respuesta == 1) {
+                    $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).text("Registro editado correctamente")
+                    $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).css("color", "blue")
+                } else {
+                    $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).text("No se ha conseguido editar el registro")
+                    $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).css("color", "red")
+                }
+                location.reload()
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    } else {
+        $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).text("Debes insertar todos los valores!")
+        $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).css("color", "red")
+    }
+})
+
+//Establecer estado en inscripciones cerradas
+
+$(document).on("click", ".btnCerrar", function () {
+    let carreraCerrar = $(this).parent().parent().parent().parent().find(".nombreListado").eq(0).text()
     $.ajax({
-        url: "./Php/getCarrera.php",
-        data: { "nombreCarrera": carreraEditar },
-        dataType: 'json',
+        url: "./Php/cerrarEstado.php",
+        data: { "carrera": carreraCerrar },
         type: 'POST',
         success: function (respuesta) {
-
-            //Esta parte está mal para rellenar los inputs de los valores de la carrera
-
-            $(this).parent().parent().find(".formularioEditar").eq(0).find("input").eq(0).val()
-            $(this).parent().parent().find(".formularioEditar").eq(0).find("div").eq(0).find("input").eq(1).val(respuesta.localizacion)
-            $(this).parent().parent().find(".formularioEditar").eq(0).find("div").eq(0).find("input").eq(2).val(respuesta.longitud)
-            $(this).parent().parent().find(".formularioEditar").eq(0).find("div").eq(0).find("input").eq(3).val(respuesta.desnivel)
-            $(this).parent().parent().find(".formularioEditar").eq(0).find("div").eq(0).find("input").eq(4).val(respuesta.tipoCarrera)
-            $(this).parent().parent().find(".formularioEditar").eq(0).find("div").eq(0).find("input").eq(5).val(respuesta.fechaCarrera)
-            $(this).parent().parent().find(".formularioEditar").eq(0).find("div").eq(0).find("input").eq(6).val(respuesta.estado)
+            if (respuesta == 1) {
+                alert("Inscripciones cerradas!")
+            }
         },
         error: function (e) {
             console.log(e)
@@ -373,41 +465,17 @@ $(document).on("click", ".editarListado", function () {
     })
 })
 
-//Editar carrera
+//Establecer estado de la carrera en finalizada
 
-$(document).on("click", ".btnEditar", function () {
-    let carreraEditar = $(this).parent().parent().parent().parent().find("div").eq(0).find(".nombreListado").eq(0).text()
-    let nombreEditar = $(this).parent().parent().find("input").eq(0).val()
-    let localizacionEditar = $(this).parent().parent().find("input").eq(1).val()
-    let longitudEditar = $(this).parent().parent().find("input").eq(2).val()
-    let desnivelEditar = $(this).parent().parent().find("input").eq(3).val()
-    let tipoCarreraEditar = $(this).parent().parent().find("input").eq(4).val()
-    let modoInscripcionEditar = $(this).parent().parent().find("select").eq(0).val()
-    let fechaEditar = $(this).parent().parent().find("input").eq(5).val()
-    let estado = $(this).parent().parent().find("input").eq(6).val()
+$(document).on("click", ".btnFinalizar", function () {
+    let carreraCerrar = $(this).parent().parent().parent().parent().find(".nombreListado").eq(0).text()
     $.ajax({
-        url: "./Php/editarCarrera.php",
-        data: {
-            "carrera": carreraEditar,
-            "nombre": nombreEditar,
-            "localizacion": localizacionEditar,
-            "longitud": longitudEditar,
-            "desnivel": desnivelEditar,
-            "tipo": tipoCarreraEditar,
-            "modo": modoInscripcionEditar,
-            "fecha": fechaEditar,
-            "estado": estado
-        },
+        url: "./Php/finalizarEstado.php",
+        data: { "carrera": carreraCerrar },
         type: 'POST',
         success: function (respuesta) {
-            $(this).parent().parent().find(".formularioEditar").eq(0).empty()
-            $(this).parent().parent().find(".formularioEditar").eq(0).toggleClass("d-none")
-            if (respuesta == true) {
-                $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).text("Registro editado correctamente")
-                $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).css("color", "blue")
-            } else {
-                $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).text("No se ha conseguido editar el registro")
-                $(this).parent().parent().parent().parent().find(".mensajeEditar").eq(0).css("color", "red")
+            if (respuesta == 1) {
+                alert("La carrera ha sido finalizada!")
             }
         },
         error: function (e) {
@@ -422,12 +490,81 @@ $(document).on("click", "#clasificaciones", function () {
     $("#clasificacionesCont").toggleClass("d-none")
     $.ajax({
         url: "./Php/getCarrerasTerminadas.php",
+        dataType: 'json',
+        type: 'POST',
+        success: function (respuesta) {
+            $("#listadoCarrerasClas").empty()
+            for (let i = 0; i < respuesta.length; i++) {
+                $("#listadoCarrerasClas").append(getMiniTarjetas())
+                $(".nomCarreraClasificacion").eq(0).text(`${respuesta.nombreCarrera}`)
+            }
+        },
+        error: function (e) {
+            console.log(e)
+        }
+    })
+})
+
+$(document).on("click", ".carreraClasificacion", function () {
+    $("#clasificacionCarrera").toggleClass("d-none")
+    let carrera = $(this).find("h3").eq(0).text()
+    $.ajax({
+        url: "./Php/getClasificacion.php",
+        data: { "carrera": carrera },
         type: 'POST',
         dataType: 'json',
         success: function (respuesta) {
             for (let i = 0; i < respuesta.length; i++) {
-                $("#listadoCarrerasClas").append(getMiniTarjetas())
-                $(".nomCarreraClasificacion").eq(i).text(respuesta[i].nombreCarrera)
+                if (i == 0) {
+                    $("#clasificacionCarrera").append(getClasificacion())
+                    $(".posicion").eq(i).text(i + 1)
+                    $(".usuario").eq(i).text(respuesta[i].usuario)
+                    $(".nombreCorredor").eq(i).html(`${respuesta[i].nombreUsuario} <i class="bi bi-trophy-fill text-dorado"></i>`)
+                    $(".fechaClasificacion").eq(i).text(respuesta[i].fechaNacimiento)
+                    $(".localidad").eq(i).text(respuesta[i].localidad)
+                    $(".tiempo").eq(i).text(respuesta[i].tiempo)
+                    $(".numero").eq(i).text(respuesta[i].numero)
+                } else {
+                    $("#clasificacionCarrera").append(getClasificacion())
+                    $(".posicion").eq(i).text(i + 1)
+                    $(".usuario").eq(i).text(respuesta[i].usuario)
+                    $(".nombreCorredor").eq(i).text(respuesta[i].nombreUsuario)
+                    $(".fechaClasificacion").eq(i).text(respuesta[i].fechaNacimiento)
+                    $(".localidad").eq(i).text(respuesta[i].localidad)
+                    $(".tiempo").eq(i).text(respuesta[i].tiempo)
+                    $(".numero").eq(i).text(respuesta[i].numero)
+                }
+
+            }
+        },
+        error: function (e) {
+            console.log(e)
+        }
+    })
+})
+
+//Listado de inscripciones de un usuario
+
+$(document).on("click", "#listadoInscripciones", function () {
+    $("#addUsuario").text(localStorage.getItem("usuario"))
+    $.ajax({
+        url: "./Php/lista.php",
+        data: {
+            "usuario": localStorage.getItem("usuario")
+        },
+        type: 'GET',
+        success: function (respuesta) {
+            $("#listaInscripciones").toggleClass("d-none")
+            for (let i = 0; i < respuesta.length; i++) {
+                $("#listadoIns").append(getTarjetas())
+                $(".card-img-top").eq(i).append(respuesta[i].Recorrido)
+                $(".card-title").eq(i).html(respuesta[i].nombreCarrera + "  <div class='verModal d-inline rounded-circle'><i class='bi bi-info-circle'></i></div>")
+                $(".card-text").eq(i).text(`Localización : ${respuesta[i].localizacion}`)
+                if (localStorage.getItem("usuario") != null) {
+                    $(".iconoCards").eq(i).text($("#icono").text())
+                } else {
+                    $(".iconoCards").eq(i).html(`<i class="bi bi-person-fill"></i>`)
+                }
             }
         },
         error: function (e) {
