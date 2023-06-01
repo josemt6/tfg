@@ -5,7 +5,7 @@ $clave="";
 $bd="carrerasdeportivas";
 $conn=mysqli_connect($host,$usuario,$clave,$bd);
 //Coger varias filas
-$resultado=$conn->query("select * from carreras where estado='disponible'");
+$resultado=$conn->query("select * from carreras where estado!='finalizada'");
 $row=$resultado->fetch_all(MYSQLI_ASSOC); 
 $conn->close();
 $rdo=json_encode($row);

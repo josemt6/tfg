@@ -370,6 +370,11 @@ $(document).on("click", "#inscribirse", function () {
                     $("#txtModalInscripcion").empty()
                     $("#txtModalInscripcion").append(`<h2 class='text-azul'><i class="bi bi-check-circle-fill"></i> Solicitud enviada</h2>`)
                     $("#modalInscripcion").modal("show")
+                } else {
+                    $("#modalCarreras").modal("hide")
+                    $("#txtModalInscripcion").empty()
+                    $("#txtModalInscripcion").append(`<h2 class='text-rojo'><i class="bi bi-x-circle"></i> No puedes enviar más de una solicitud!!</h2>`)
+                    $("#modalInscripcion").modal("show")
                 }
             },
             error: function (e) {

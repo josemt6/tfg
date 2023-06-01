@@ -263,6 +263,14 @@ class Base
         $row = $rdo->execute(array("solicitud" => $solicitud));
         return $row;
     }
+    public static function comprobarSolicitud($usuario,$carrera){
+        $codUsuario = self::getCodUsuario($usuario);
+        $codCarrera = self::getCodCarrera($carrera);
+        $conexion = self::conectar();
+        $sql = "SELECT codSolicitud from solicitudes WHERE codUsuario='". $codUsuario ."' AND codCarrera='". $codCarrera ."'";
+        $rdo = $conexion->query($sql);
+        return $rdo;
+    }
     public static function comprobarDorsal($usuario,$carrera){
         $codUsuario = self::getCodUsuario($usuario);
         $codCarrera = self::getCodCarrera($carrera);
